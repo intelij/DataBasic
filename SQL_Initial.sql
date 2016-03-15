@@ -1,34 +1,30 @@
-/*
-Passenger(PID, email, password, phone#, firstName, lastName, cNum, expDate)
-Driver(DID, email, password, phone#, firstName, lastName, license#, cNum, expDate)
-Car(licensePlate#, type, color)
-Create_RideShare(RID, destination, price, did, address, postalCode, province, city, date, time, Ctime, Cdate)
-Participates(PID, RID)
-Transaction(TID, Type, RID, PID)
+/*drop database if exists DataBasic;
 
-TODO: Fix the SQL syntax
+create database DataBasic;
 */
-
-drop database if exists RideShare;
-
-create database Rideshare;
-
-use RideShare;
+use DataBasic;
 
 drop table if exists Passenger;
 CREATE TABLE Passenger
-	(PID Integer NOT NULL,
+	(PID int auto_increment not null,
 	email Char(25) NOT NULL,
 	password Char(25) NOT NULL,
 	phoneNum Integer,
 	firstName Char(25),
 	lastName Char(25),
-	licenseNum Char(25)
+	licenseNum Char(25),
   PRIMARY KEY (PID));
+
+drop table if exists Car;
+CREATE TABLE Car
+	(licenseNum char(25),
+	type char(25),
+	color char(25),
+PRIMARY KEY (licenseNum));
 
 drop table if exists Driver;
 CREATE TABLE Driver
-	(DID Integer,
+	(DID int auto_increment not null,
 	email Char(25),
 	password Char(25),
 	phoneNum Integer,
@@ -38,47 +34,42 @@ CREATE TABLE Driver
 PRIMARY KEY (DID),
 FOREIGN KEY (licenseNum) references Car (licenseNum));
 
-drop table if exists Car;
-CREATE TABLE Car
-	(licenseNum char(25),
-	type char(25),
-	color char(25),
-PRIMARY KEY (licenseNum));
-
 drop table if exists RideShare;
 CREATE TABLE RideShare
+  (RID int auto_increment not null,
   destination Char(25),
   price Integer,
   DID Integer NOT NULL,
   address Char(25),
   postalCode Char(25),
-	province Char(25),
-	city Char(25),
-  date Char(25),
-  time Char(25),
+  province Char(25),
+  city Char(25),
+  rdate Char(25),
+  rtime Char(25),
   Ctime Char(25),
   CDate Char(25),
-  UNIQUE(DID),
   PRIMARY KEY (RID),
-  FOREIGN KEY (DID) references Driver, (PID) references Passenger);
+  FOREIGN KEY (DID) references Driver (DID),
+  FOREIGN KEY (PID) references Passenger (PID));
 
 drop table if exists Participates;
 CREATE TABLE Participates
-	(PID Integer,
-	RID Integer,
+	(PID Integer NOT NULL,
+	RID Integer NOT NULL,
   PRIMARY KEY (PID, RID),
-  FOREIGN KEY (PID) REFERENCES Passenger, (RID) REFERENCES RideShare);
+  FOREIGN KEY (PID) REFERENCES Passenger (PID),
+  FOREIGN KEY (RID) REFERENCES RideShare (RID) );
 
 drop table if exists Transaction;
 CREATE TABLE Transaction
-	(TID Integer,
+	(TID int auto_increment not null,
 	Type Char(25),
-	RID Integer,
-	PID Integer
-PRIMARY KEY (TID)
-FOREIGN KEY (TID) REFERENCES RideShare, (PID) REFERENCES Passenger);
+	RID Integer NOT NULL,
+	PID Integer NOT NULL,
+PRIMARY KEY (TID),
+FOREIGN KEY (TID) REFERENCES RideShare (TID) ,
+FOREIGN KEY (PID) REFERENCES Passenger (PID));
 
-commit;
 
 
 
