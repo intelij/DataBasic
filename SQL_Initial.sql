@@ -39,6 +39,7 @@ CREATE TABLE RideShare
   (RID int auto_increment not null,
   destination Char(25),
   price Integer,
+  PID Integer,
   DID Integer NOT NULL,
   address Char(25),
   postalCode Char(25),
@@ -67,7 +68,7 @@ CREATE TABLE Transaction
 	RID Integer NOT NULL,
 	PID Integer NOT NULL,
 PRIMARY KEY (TID),
-FOREIGN KEY (TID) REFERENCES RideShare (TID) ,
+FOREIGN KEY (RID) REFERENCES RideShare (RID) ,
 FOREIGN KEY (PID) REFERENCES Passenger (PID));
 
 
