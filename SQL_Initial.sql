@@ -39,7 +39,6 @@ CREATE TABLE RideShare
   (RID int auto_increment not null,
   destination Char(25),
   price Integer,
-  PID Integer,
   DID Integer NOT NULL,
   address Char(25),
   postalCode Char(25),
@@ -50,8 +49,7 @@ CREATE TABLE RideShare
   Ctime Char(25),
   CDate Char(25),
   PRIMARY KEY (RID),
-  FOREIGN KEY (DID) references Driver (DID),
-  FOREIGN KEY (PID) references Passenger (PID));
+  FOREIGN KEY (DID) references Driver (DID));
 
 drop table if exists Participates;
 CREATE TABLE Participates
