@@ -1,6 +1,7 @@
 <!-- CreateRideShare (Driver View) -->
 
 <?php
+
 require_once("db.php");
 
 
@@ -22,6 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 $car = array("licenseNum" => $_POST['licenseNum'],
 "type" => $_POST['type'],
 "color" => $_POST['color']);
+
+$link = mysqli_connect('databasic.cvhyllwoxxb3.us-west-1.rds.amazonaws.com', 'DataBasicTeam', 'CPSC304!');
+if (!mysqli_ping($link)) {
+    die('Not connected : ' . mysqli_error());
+}
+
 ?>
 
 <form name="addCar" action="createrideshare.php" method="POST">
