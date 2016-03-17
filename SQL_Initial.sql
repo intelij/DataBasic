@@ -12,7 +12,6 @@ CREATE TABLE Passenger
 	phoneNum Integer,
 	firstName Char(25),
 	lastName Char(25),
-	licenseNum Char(25),
   PRIMARY KEY (PID));
 
 drop table if exists Car;

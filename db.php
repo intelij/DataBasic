@@ -3,7 +3,8 @@
 
 
 <?php
-class RideshareDB extends mysqli {
+class RideshareDB extends mysqli
+{
 
 // single instance of self shared among all instances
     private static $instance = null;
@@ -16,7 +17,8 @@ class RideshareDB extends mysqli {
 
     //This method must be static, and must return an instance of the object if the object
     //does not already exist.
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (!self::$instance instanceof self) {
             self::$instance = new self;
         }
@@ -25,16 +27,19 @@ class RideshareDB extends mysqli {
 
     // The clone and wakeup methods prevents external instantiation of copies of the Singleton class,
     // thus eliminating the possibility of duplicate objects.
-    public function __clone() {
+    public function __clone()
+    {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
     }
 
-    public function __wakeup() {
+    public function __wakeup()
+    {
         trigger_error('Deserializing is not allowed.', E_USER_ERROR);
     }
 
     // private constructor
-    private function __construct() {
+    private function __construct()
+    {
         parent::__construct($this->dbHost, $this->user, $this->pass, $this->dbName);
         if (mysqli_connect_error()) {
             exit('Connect Error (' . mysqli_connect_errno() . ') '
@@ -43,7 +48,8 @@ class RideshareDB extends mysqli {
         parent::set_charset('utf-8');
     }
 
-    public function verify_user_credentials($name, $password) {
+    public function verify_user_credentials($name, $password)
+    {
         $name = $this->real_escape_string($name);
         $password = $this->real_escape_string($password);
         $result = $this->query("SELECT 1 FROM wishers WHERE name = '"
@@ -51,6 +57,16 @@ class RideshareDB extends mysqli {
         return $result->data_seek(0);
     }
 
+    public function insert_car($licenseNum, $type, $color)
+    {
+        $licenseNum = $this->real_escape_string($licenseNum);
+        $type = $this->real_escape_string($type);
+        $color = $this->real_escape_string($color);
+
+        $this->query("INSERT INTO Car (licenseNum, type, color)" .
+                " VALUES (''" . $licenseNum . "', '" . $type. "', '" .$color.")");
+        }
 
 
 }
+    ?>
