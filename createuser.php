@@ -1,9 +1,8 @@
-<!-- CreateRideShare (Driver View) -->
+<!-- CreateUser (Driver View) -->
 
 <?php
 
 require_once("db.php");
-
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     RideshareDB::getInstance()->insert_Car($_POST['icenseNum'], $_POST['type'], $_POST['color']);
