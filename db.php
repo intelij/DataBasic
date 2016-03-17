@@ -64,9 +64,8 @@ class RideshareDB extends mysqli
         $color = $this->real_escape_string($color);
 
         $this->query("INSERT INTO Car (licenseNum, type, color)" .
-                " VALUES (''" . $licenseNum . "', '" . $type. "', '" .$color.")");
-        }
-
+            " VALUES ('" . $licenseNum . "', '" . $type. "', '" .$color."')");
+    }
 
 }
     ?>
