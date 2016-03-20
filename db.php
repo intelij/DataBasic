@@ -38,7 +38,7 @@ class RideshareDB extends mysqli
     }
 
     // private constructor
-    private function __construct()
+    public function __construct()
     {
         parent::__construct($this->dbHost, $this->user, $this->pass, $this->dbName);
         if (mysqli_connect_error()) {
