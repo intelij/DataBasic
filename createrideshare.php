@@ -11,6 +11,8 @@ require_once("db.php");
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Create a new rideshare</title>
+    <h1>New RideShare</h1>
 </head>
 <body>
 
@@ -23,5 +25,34 @@ if (!mysqli_ping($link)) {
 
 ?>
 
+<form name="createRideshare" action="createrideshare.php" method="post">
+    Destination:<br>
+    <input list="destination">
+    <datalist id="destination">
+        <option value="Whistler">
+        <option value="Kelowna">
+        <option value="Squamish">
+        <option value="Pemberton">
+    </datalist><br>
+    Price:<br>
+    <input type="text" name="price"><br>
+    Address:<br>
+    <input type="text" name="address"><br>
+    Postal Code:<br>
+    <input type="text" name="postalCode"><br>
+    Province:<br>
+    <input type="text" name="province" value="BC"><br>
+    City:<br>
+    <input type="text" name="city" value="Vancouver"><br>
+    Departure Date:<br>
+    <input type="date" name="rdate"><br>
+    Departure Time:<br>
+    <input type="time" name="rtime"><br>
+    <input type="submit" value="Create New Rideshare"><br>
+</form>
+
+
 </body>
+
+
 </html>
