@@ -24,21 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <title>Application</title>
 </head>
 <body>
-<form name="wishList" action="wishlist.php" method="GET">
-    Show wish list of: <input type="text" name="user"/>
-    <input type="submit" value="Go" />
-</form>
-Still don't have a wish list?! <a href="createNewWisher.php">Create now</a>
-<form name="logon" action="index.php" method="POST" >
-    Username: <input type="text" name="user"/>
-    Password  <input type="password" name="userpassword"/>
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        if (!$logonSuccess)
-            echo "Invalid name and/or password";
-    }
-    ?>
-    <input type="submit" value="Edit My Wish List"/>
-</form>
+
+
 </body>
 </html>
