@@ -82,5 +82,8 @@ class RideshareDB extends mysqli
          '" . $password . "'
          )");
     }
+
 }
     ?>
+
+

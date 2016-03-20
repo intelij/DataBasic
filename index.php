@@ -7,11 +7,11 @@ $logonSuccess = false;
 
 // verify user's credentials
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $logonSuccess = (RideshareDB::getInstance()->verify_user_credentials($_POST['user'], $_POST['userpassword']));
+    $logonSuccess = (RideshareDB::getInstance()->verify_user_credentials($_POST['user'], $_POST['password']));
     if ($logonSuccess == true) {
         session_start();
         $_SESSION['user'] = $_POST['user'];
-        //header('Location: editWishList.php'); TODO: determine the header file
+        header('Location: driverhomepage.php');
         exit;
     }
 }
@@ -21,10 +21,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Application</title>
 </head>
 <body>
+Don't have an account? <a href="createdriver.php">Create now</a>
 
+<form name="logon" action="index.php" method="POST" >
+    Username: <input type="text" name="user"/>
+    Password  <input type="password" name="password"/>
 
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (!$logonSuccess)
+            echo "Invalid name and/or password";
+    }
+    ?>
+
+    <input type="submit" value="Login"/>
+</form>
 </body>
 </html>

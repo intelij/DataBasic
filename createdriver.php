@@ -4,7 +4,6 @@
 
 require_once("db.php");
 
-/**other variables */
 $passwordIsValid = true;
 $passwordIsEmpty = false;
 $password2IsEmpty = false;
@@ -28,9 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             $_POST['email'],$_POST['phoneNum'], $_POST['licenseNum'],$_POST['password']);
         RideshareDB::getInstance()->insert_Car($_POST['licenseNum'], $_POST['type'], $_POST['color']);
 
-  //      session_start();
-    //    $_SESSION['user'] = $_POST['user'];
-        //header('Location: editWishList.php' ); //Where do we redirect it?
+        header('Location: index.php');
         exit;
     }
 }
@@ -45,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 <h3>User Information</h3>
 
-<form name="addDriver" action="createdriver.php" method="POST">
+<form name="addDriver" action="index.php" method="POST">
 
     User name: <input type="text" name="user"/><br/>
     Email:  <input type="text" name="email"/><br/>
