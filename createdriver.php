@@ -10,11 +10,6 @@ $passwordIsEmpty = false;
 $password2IsEmpty = false;
 
 
-/*if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    RideshareDB::getInstance()->insert_Car($_POST['licenseNum'], $_POST['type'], $_POST['color']);
-    exit;
-}*/
-
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
     if ($_POST['user']==""){
         $userIsEmpty = true;
@@ -47,13 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-
-<?php
-$link = mysqli_connect('databasic.cvhyllwoxxb3.us-west-1.rds.amazonaws.com', 'DataBasicTeam', 'CPSC304!');
-if (!mysqli_ping($link)) {
-    die('Not connected : ' . mysqli_error());
-}
-?>
 
 <h3>User Information</h3>
 
