@@ -52,7 +52,7 @@ class RideshareDB extends mysqli
     {
         $name = $this->real_escape_string($name);
         $password = $this->real_escape_string($password);
-        $result = $this->query("SELECT 1 FROM wishers WHERE name = '"
+        $result = $this->query("SELECT 1 FROM Driver WHERE name = '"
             . $name . "' AND password = '" . $password . "'");
         return $result->data_seek(0);
     }
@@ -67,5 +67,20 @@ class RideshareDB extends mysqli
             " VALUES ('" . $licenseNum . "', '" . $type. "', '" .$color."')");
     }
 
+    public function create_driver($name, $email, $phoneNum, $password, $licenseNum) {
+        $name = $this->real_escape_string($name);
+        $email = $this->real_escape_string($email);
+        $phoneNum = $this->real_escape_string($phoneNum);
+        $licenseNum = $this->real_escape_string($licenseNum);
+        $password = $this->real_escape_string($password);
+
+        $this->query("INSERT INTO Driver (name, email, phoneNum, password, licenseNum)" .
+        "VALUES ('" . $name . "',
+         '" . $email . "',
+         '" . $phoneNum . "',
+         '" . $licenseNum . "',
+         '" . $password . "'
+         )");
+    }
 }
     ?>
