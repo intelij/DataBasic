@@ -1,7 +1,3 @@
-<!-- Utility PHP -->
-<!-- Based off of https://netbeans.org/kb/docs/php/wish-list-lesson2.html -->
-
-
 <?php
 class RideshareDB extends mysqli
 {
@@ -84,6 +80,3 @@ class RideshareDB extends mysqli
     }
 
 }
-    ?>
-
-

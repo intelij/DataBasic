@@ -1,6 +1,3 @@
-<!-- Login & Signup Page -->
-<!-- Based off of https://netbeans.org/kb/docs/php/wish-list-lesson2.html -->
-
 <?php
 require_once("db.php");
 $logonSuccess = false;
