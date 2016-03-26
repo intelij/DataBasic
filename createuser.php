@@ -28,6 +28,10 @@ if (!mysqli_ping($link)) {
     die('Not connected : ' . mysqli_error());
 }
 
+else {
+    $car = array("empty","empty","empty");
+}
+
 ?>
 
 <form name="addCar" action="createuser.php" method="POST">

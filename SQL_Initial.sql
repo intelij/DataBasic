@@ -47,6 +47,8 @@ CREATE TABLE RideShare
   rtime Char(25),
   Ctime Char(25),
   CDate Char(25),
+	seats Integer,
+	seatsLeft Integer,
   PRIMARY KEY (RID),
   FOREIGN KEY (DID) references Driver (DID));
 
