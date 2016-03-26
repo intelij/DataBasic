@@ -1,7 +1,3 @@
-<!-- Utility PHP -->
-<!-- Based off of https://netbeans.org/kb/docs/php/wish-list-lesson2.html -->
-
-
 <?php
 class RideshareDB extends mysqli
 {
@@ -67,7 +63,6 @@ class RideshareDB extends mysqli
             " VALUES ('" . $licenseNum . "', '" . $type. "', '" .$color."')");
     }
 
-
     public function create_driver($name, $email, $phoneNum, $password, $licenseNum) {
         $name = $this->real_escape_string($name);
         $email = $this->real_escape_string($email);
@@ -89,6 +84,5 @@ class RideshareDB extends mysqli
                   FROM RideShare R, Driver D
                   WHERE R.DID = D.DID AND seatsLeft > 0 /*AND R.rdate >= cast(getdate() as date)*/ /*AND r.rtime >= cast(gettime() as time)*/");
     }
-}
 
-    ?>
+}
