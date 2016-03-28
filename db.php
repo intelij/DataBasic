@@ -121,5 +121,11 @@ class RideshareDB extends mysqli
              " . $Ctime . ", " . $this->format_date_for_sql($CDate) . ",
              " . $seats . ", " . $seatsLeft .")");}
 
+    public function get_available_rideshares(){
+        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft
+                  FROM RideShare R, Driver D
+                  WHERE R.DID = D.DID AND seatsLeft > 0 /*AND R.rdate >= cast(getdate() as date)*/ /*AND r.rtime >= cast(gettime() as time)*/");
+    }
+
 }
     ?>
