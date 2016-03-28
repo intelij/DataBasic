@@ -1,3 +1,7 @@
+<!-- Utility PHP -->
+<!-- Based off of https://netbeans.org/kb/docs/php/wish-list-lesson2.html -->
+
+
 <?php
 class RideshareDB extends mysqli
 {
@@ -79,4 +83,43 @@ class RideshareDB extends mysqli
          )");
     }
 
+    function format_date_for_sql($date){
+        if ($date == "")
+            return null;
+        else {
+            $dateParts = date_parse($date);
+            return $dateParts["year"]*10000 + $dateParts["month"]*100 + $dateParts["day"];
+        }
+
+    }
+
+
+    public function create_rideshare($RID, $DID, $destination, $price, $address, $postalCode, $province,
+                                     $city, $rdate, $rtime, $Ctime, $CDate,$seats,$seatsLeft){
+        //initialize variables
+        $RID = $this->real_escape_string($RID);
+        $DID = $this->real_escape_string($DID);
+        $destination = $this->real_escape_string($destination);
+        $price = $this->real_escape_string($price);
+        $address = $this->real_escape_string($address);
+        $postalCode = $this->real_escape_string($postalCode);
+        $province = $this->real_escape_string($province);
+        $city = $this->real_escape_string($city);
+        $rdate = $this->real_escape_string($rdate);
+        $rtime = $this->real_escape_string($rtime);
+        $Ctime = $this->real_escape_string($Ctime);
+        $CDate = $this->real_escape_string($CDate);
+        $seats = $this->real_escape_string($seats);
+        $seatsLeft = $this->real_escape_string($seatsLeft);
+
+        $this->query("INSERT INTO RideShare (RID,DID, destination, price, address, postalCode, province, city, rdate, rtime, Ctime, CDate, seats, seatsLeft)" .
+            " VALUES (" . $RID . ", " . $DID . ",
+             " . $destination . ", " . $price . ",
+             " . $address . "," . $postalCode .",
+             " . $province . ", " . $city . ",
+             " . $this->format_date_for_sql($rdate) . "," . $rtime .",
+             " . $Ctime . ", " . $this->format_date_for_sql($CDate) . ",
+             " . $seats . ", " . $seatsLeft .")");}
+
 }
+    ?>
