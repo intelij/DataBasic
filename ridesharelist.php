@@ -26,7 +26,8 @@ require_once("db.php");
             echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
             echo "<td>" . htmlentities($row['name']) . "</td>";
             echo "<td>" . htmlentities($row['destination']) . "</td>";
-            echo "<td>" . htmlentities($row['']) . "</td></tr>\n";
+            echo "<td>" . htmlentities($row['price']) . "</td>";
+            echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
 
         }
         mysqli_free_result($result);
@@ -36,4 +37,5 @@ require_once("db.php");
 
     </body>
 </html>
+
 
