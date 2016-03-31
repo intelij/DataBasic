@@ -93,6 +93,22 @@ class RideshareDB extends mysqli
 
     }
 
+    public function create_participates($PID, $RID, $Type){
+
+        $PID = $this->real_escape_string($PID);
+        $RID = $this->real_escape_string($RID);
+        $Type = $this->real_escape_string($Type);
+
+        $this->query("INSERT INTO Participates (PID, RID, Type)" .
+            "VALUES (" . $PID . ",
+         " . $RID . ",
+         " . $Type . "
+         )");
+
+
+
+    }
+
 
     public function create_rideshare($RID, $DID, $destination, $price, $address, $postalCode, $province,
                                      $city, $rdate, $rtime, $Ctime, $CDate,$seats,$seatsLeft){
