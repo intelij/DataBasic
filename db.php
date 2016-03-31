@@ -143,5 +143,35 @@ class RideshareDB extends mysqli
                   WHERE R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() /*AND r.rtime >= cast(gettime() as time)*/");
     }
 
+    public function get_current_drivers_rideshares($driverID){
+        return $this->query("SELECT rdate, destination, price, seats, seatsLeft
+                  FROM RideShare R, Driver D
+                  WHERE $driverID = D.DID AND R.DID = D.DID AND R.rdate >= curdate()");
+    }
+
+    public function get_past_drivers_rideshares($driverID){
+        return $this->query("SELECT rdate, destination, price, seats, seatsLeft
+                  FROM RideShare R, Driver D
+                  WHERE $driverID = D.DID AND R.DID = D.DID AND R.rdate < curdate()");
+    }
+
+    public function get_rideshare_transactions($rideShareID){
+        return $this->query("SELECT P.name, type, price
+                            FROM RideShare R, Participates Pa, Passenger P
+                            WHERE R.RID = $rideShareID AND R.RID = P.RID AND P.PID = Pa.PID ");
+    }
+
+    public function get_current_passengers_rideshares($passengerID){
+        return $this->query("SELECT rdate, destination, price, seatsLeft
+                  FROM RideShare R, Driver D, Participates Pa
+                  WHERE $passengerID = P.PID AND P.PID = Pa.PID AND R.RID = Pa.RID AND R.rdate >= curdate()");
+    }
+
+    public function get_past_passengers_rideshares($passengerID){
+        return $this->query("SELECT rdate, destination, price
+                  FROM RideShare R, Passenger P, Participates Pa
+                  WHERE $passengerID = P.PID AND P.PID = Pa.PID AND R.RID = Pa.RID AND R.rdate < curdate()");
+    }
+
 }
     ?>

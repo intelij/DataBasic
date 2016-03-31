@@ -8,7 +8,8 @@ require_once("db.php");
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
     <html>
     <body>
-    Available List of RideShares
+    Avaialble RideShares
+    <br>
 
 
 
