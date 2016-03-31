@@ -9,23 +9,30 @@ if (!mysqli_ping($link)) {
     die('Not connected : ' . mysqli_error());
 }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST"){
+//driver id is current session driver id
+//get_driverid needs to be implemented in db.php
+// get_driverid($_SESSION['user']);
 
+$DID = 1;
+$Ctime = time();
+date_default_timezone_set('America/Vancouver');
+$CDate = date("y/m/d");
+
+
+// set seatsLeft to initial value of seats
+$seatsLeft = $_POST['seats'];
+
+if ($_SERVER['REQUEST_METHOD'] == "POST"){
     // RID, DID, Ctime, Cdate, seatsLeft not on form.
     // These values need to be created upon submit
-
-        RideshareDB::getInstance()->create_rideshare($_POST['RID'],$_POST['DID'],$_POST['destination'],
-            $_POST['price'],$_POST['address'],
-            $_POST['postalCode'],$_POST['province'],$_POST['city'],$_POST['rdate'], $_POST['rtime'],$_POST['Ctime'],$_POST['CDate'],
-            $_POST['seats'],$_POST['seatsLeft']);
-
-
-        exit;
+    RideshareDB::getInstance()->create_rideshare($DID,$_POST['destination'],
+        $_POST['price'],$_POST['address'],
+        $_POST['postalCode'],$_POST['province'],$_POST['city'],$_POST['rdate'], $_POST['rtime']
+        ,$Ctime, $CDate,
+        $_POST['seats'],$seatsLeft);
+    exit;
 
 }
-
-
-
 
 ?>
 
