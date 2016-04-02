@@ -110,10 +110,9 @@ class RideshareDB extends mysqli
     }
 
 
-    public function create_rideshare($RID, $DID, $destination, $price, $address, $postalCode, $province,
+    public function create_rideshare($DID, $destination, $price, $address, $postalCode, $province,
                                      $city, $rdate, $rtime, $Ctime, $CDate,$seats,$seatsLeft){
         //initialize variables
-        $RID = $this->real_escape_string($RID);
         $DID = $this->real_escape_string($DID);
         $destination = $this->real_escape_string($destination);
         $price = $this->real_escape_string($price);
@@ -122,20 +121,25 @@ class RideshareDB extends mysqli
         $province = $this->real_escape_string($province);
         $city = $this->real_escape_string($city);
         $rdate = $this->real_escape_string($rdate);
+        $rdate = $this->format_date_for_sql($rdate);
         $rtime = $this->real_escape_string($rtime);
         $Ctime = $this->real_escape_string($Ctime);
         $CDate = $this->real_escape_string($CDate);
+        $CDate = $this->format_date_for_sql($CDate);
         $seats = $this->real_escape_string($seats);
         $seatsLeft = $this->real_escape_string($seatsLeft);
 
-        $this->query("INSERT INTO RideShare (RID,DID, destination, price, address, postalCode, province, city, rdate, rtime, Ctime, CDate, seats, seatsLeft)" .
-            " VALUES (" . $RID . ", " . $DID . ",
-             " . $destination . ", " . $price . ",
-             " . $address . "," . $postalCode .",
-             " . $province . ", " . $city . ",
-             " . $this->format_date_for_sql($rdate) . "," . $rtime .",
-             " . $Ctime . ", " . $this->format_date_for_sql($CDate) . ",
-             " . $seats . ", " . $seatsLeft .")");}
+        $this->query("INSERT INTO RideShare (DID,  postalCode, destination, address, price, rdate, rtime, Ctime, CDate, seats, seatsLeft)" .
+            " VALUES ( " . $DID . ",
+             " . $postalCode .", " . $destination . ",
+             " . $address . "," . $price . ",
+             " . $rdate . "," . $rtime .",
+             " . $Ctime . ", " . $CDate . ",
+             " . $seats . ", " . $seatsLeft .")");
+
+        $this->query("INSERT INTO Location (postalCode, city, province)" . " VALUES(" . $postalCode . ", " . $city . ", " . $province . ")");
+
+    }
 
     public function get_available_rideshares(){
         return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft
