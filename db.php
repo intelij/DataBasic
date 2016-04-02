@@ -48,6 +48,20 @@ class RideshareDB extends mysqli
         parent::set_charset('utf-8');
     }
 
+    public function get_driver_id_by_name($name) {
+        $name = $this->real_escape_string($name);
+        $driverID = $this->query("SELECT DID FROM Driver WHERE name = '"
+            . $name . "'");
+        return $driverID;
+    }
+
+    public function get_passenger_id_by_name($name) {
+        $name = $this->real_escape_string($name);
+        $passengerID = $this->query("SELECT PID FROM Passenger WHERE name = '"
+            . $name . "'");
+        return $passengerID;
+    }
+
     public function verify_user_credentials($name, $password)
     {
         $name = $this->real_escape_string($name);
