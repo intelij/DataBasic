@@ -205,7 +205,7 @@ class RideshareDB extends mysqli
     }
 
     public function get_current_passengers_rideshares($passengerID){
-        return $this->query("SELECT rdate, destination, price, seatsLeft
+    return $this->query("SELECT rdate, destination, price, seatsLeft
                   FROM RideShare R, Driver D, Participates Pa
                   WHERE $passengerID = P.PID AND P.PID = Pa.PID AND R.RID = Pa.RID AND R.rdate >= curdate()");
     }
