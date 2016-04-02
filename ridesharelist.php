@@ -8,7 +8,7 @@ require_once("db.php");
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
     <html>
     <body>
-    Avaialble RideShares
+    Available RideShares
     <br>
 
 
@@ -25,12 +25,13 @@ require_once("db.php");
         <?php
         $result = RideshareDB::getInstance()->get_available_rideshares();
         while($row = mysqli_fetch_array($result)){
+            $RideID = $row['RID'];
             echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
             echo "<td>" . htmlentities($row['name']) . "</td>";
             echo "<td>" . htmlentities($row['destination']) . "</td>";
             echo "<td>" . htmlentities($row['price']) . "</td>";
             echo "<td>" . htmlentities($row['seatsLeft']) . "</td>";
-            echo "<td>" . htmlentities("http://localhost:8000/rideshareinfo.php". "/" . $row['RID']) . "</td></tr>\n";
+            echo "<td>" . htmlentities() . "<a href=\"rideshareinfo.php?RideID=$RideID\">Go</a>"."</td>";
 
         }
         mysqli_free_result($result);
