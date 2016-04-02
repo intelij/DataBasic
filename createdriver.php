@@ -1,5 +1,3 @@
-<!-- CreateDriver (Driver View) -->
-
 <?php
 
 require_once("db.php");
@@ -37,18 +35,66 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/Public/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/Public/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Public/js/bootstrap.js"></script>
 </head>
 <body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
 
-<h3>User Information</h3>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button> <a class="navbar-brand" href="index.php">Rideshare App</a>
+                </div>
 
-<form name="addDriver" action="index.php" method="POST">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#">Link</a>
+                        </li>
+                        <li>
+                            <a href="#">Link</a>
+                        </li>
+                </div>
 
-    User name: <input type="text" name="user"/><br/>
-    Email:  <input type="text" name="email"/><br/>
-    Phone Number: <input type="text" name="phoneNum"/><br/>
-    <br/>
-    Password: <input type="password" name="password"/><br/>
+            </nav>
+
+            <div class="jumbotron">
+
+<form role="form" name="addDriver" action="createdriver.php" method="POST">
+    <h3>User Information</h3>
+    <div class="form-group">
+        <label for="username">
+            Username
+        </label>
+        <input type="text" class="form-control" name="user"/>
+    </div>
+
+    <div class="form-group">
+        <label for="email">
+            Email
+        </label>
+        <input class="form-control" type="text" name="email"/>
+    </div>
+
+    <div class="form-group">
+    <label for="phone">
+        Phone Number
+    </label>
+    <input class="form-control" type="text" name="phoneNum"/>
+    </div>
+
+    <div class="form-group">
+        <label for="pass">
+            Password
+        </label>
+        <input class="form-control" type="password" name="password"/>
+    </div>
+
     <?php
     if ($passwordIsEmpty) {
         echo ("Enter the password, please");
@@ -56,7 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     }
     ?>
 
-    Please confirm your password: <input type="password" name="password2"/><br/>
+
+    <div class="form-group">
+        <label for="pass2">
+            Confirm password
+        </label>
+        <input class="form-control" type="password" name="password2"/>
+    </div>
 
     <?php
     if ($password2IsEmpty) {
@@ -70,15 +122,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     ?>
 
     <h3>Car Information</h3>
-    Num: <input type="text" name="licenseNum" value="<?php echo $car['licenseNum']; ?>" /><br/>
-    Type:
-    <input type="text" name="type"  value="<?php echo $car['type']; ?>" /><br/>
-    Color:
-    <input type="text" name="color"  value="<?php echo $car['color']; ?>" /><br/>
 
-    <br/>
+    <div class="form-group">
+        <label for="licenseNum">License Number</label>
+        <input class="form-control" type="text" name="licenseNum"/>
+    </div>
 
-    <input type="submit" name="saveDriver" value="Save Changes"/>
+    <div class="form-group">
+        <label for="type">Type</label>
+        <input class="form-control" type="text" name="type"/>
+    </div>
+
+    <div class="form-group">
+        <label for="color">Color</label>
+        <input class="form-control" type="text" name="color"/>
+    </div>
+
+    <button type="submit" value="Login" class="btn btn-default">Submit</button>
 </form>
 </body>
 </html>

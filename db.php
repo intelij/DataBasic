@@ -1,7 +1,3 @@
-<!-- Utility PHP -->
-<!-- Based off of https://netbeans.org/kb/docs/php/wish-list-lesson2.html -->
-
-
 <?php
 class RideshareDB extends mysqli
 {
@@ -48,12 +44,44 @@ class RideshareDB extends mysqli
         parent::set_charset('utf-8');
     }
 
+    public function get_driver_id_by_name($name) {
+        $name = $this->real_escape_string($name);
+        $driverID = $this->query("SELECT DID FROM Driver WHERE name = '"
+            . $name . "'");
+        return $driverID;
+    }
+
+    public function get_passenger_id_by_name($name) {
+        $name = $this->real_escape_string($name);
+        $passengerID = $this->query("SELECT PID FROM Passenger WHERE name = '"
+            . $name . "'");
+        return $passengerID;
+    }
+
+    //TRUE(1) is Passenger
+    //FALSE(0) is Driver
+    public function get_user_type($name){
+        $name = $this->real_escape_string($name);
+
+        $result = $this->query("SELECT 1 FROM Passenger WHERE name = '"
+            . $name . "'");
+        return $result->data_seek(0);
+    }
+
     public function verify_user_credentials($name, $password)
     {
         $name = $this->real_escape_string($name);
         $password = $this->real_escape_string($password);
+
         $result = $this->query("SELECT 1 FROM Driver WHERE name = '"
             . $name . "' AND password = '" . $password . "'");
+
+        if($result->data_seek(0) == FALSE) {
+            $result = $this->query("SELECT 1 FROM Passenger WHERE name = '"
+                . $name . "' AND password = '" . $password . "'");
+            return $result->data_seek(0);
+        }
+
         return $result->data_seek(0);
     }
 
@@ -81,6 +109,22 @@ class RideshareDB extends mysqli
          '" . $licenseNum . "',
          '" . $password . "'
          )");
+    }
+
+    public function create_passenger($name, $email, $phoneNum, $password){
+        $name = $this->real_escape_string($name);
+        $email = $this->real_escape_string($email);
+        $phoneNum = $this->real_escape_string($phoneNum);
+        $password = $this->real_escape_string($password);
+
+        $this->query("INSERT INTO Passenger (name, email, phoneNum, password)" .
+            "VALUES ('" . $name . "',
+         '" . $email . "',
+         '" . $phoneNum . "',
+         '" . $password . "'
+         )");
+
+
     }
 
     function format_date_for_sql($date){
@@ -113,6 +157,7 @@ class RideshareDB extends mysqli
     public function create_rideshare($DID, $destination, $price, $address, $postalCode, $province,
                                      $city, $rdate, $rtime, $Ctime, $CDate,$seats,$seatsLeft){
         //initialize variables
+        $RID = $this->real_escape_string($RID);
         $DID = $this->real_escape_string($DID);
         $destination = $this->real_escape_string($destination);
         $price = $this->real_escape_string($price);
@@ -166,7 +211,7 @@ class RideshareDB extends mysqli
     }
 
     public function get_current_passengers_rideshares($passengerID){
-        return $this->query("SELECT rdate, destination, price, seatsLeft
+    return $this->query("SELECT rdate, destination, price, seatsLeft
                   FROM RideShare R, Driver D, Participates Pa
                   WHERE $passengerID = P.PID AND P.PID = Pa.PID AND R.RID = Pa.RID AND R.rdate >= curdate()");
     }
@@ -178,4 +223,3 @@ class RideshareDB extends mysqli
     }
 
 }
-    ?>

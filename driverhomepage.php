@@ -36,7 +36,7 @@ Ongoing RideShares -
         <th>Seats</th>
     </tr>
     <?php
-    $driverID =  RideshareDB::getInstance()->get_driver_id($_SESSION['user']);
+    $driverID =  RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
     $result = RideshareDB::getInstance()->get_current_drivers_rideshares($driverID);
     while($row = mysqli_fetch_array($result)){
         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
@@ -63,7 +63,7 @@ Past RideShares -
         <th>Seats</th>
     </tr>
     <?php
-    $driverID = RideshareDB::getInstance()->get_driver_id($_SESSION['user']);
+    $driverID = RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
     $result = RideshareDB::getInstance()->get_past_drivers_rideshares($driverID);
     while($row = mysqli_fetch_array($result)){
         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";

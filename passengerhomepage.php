@@ -35,8 +35,10 @@ Your Participated RideShares -
         <th>Seats Left</th>
     </tr>
     <?php
-    $passengerID =  RideshareDB::getInstance()->get_passenger_id($_SESSION['user']);
+    $passengerID =  RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
     $result = RideshareDB::getInstance()->get_current_passengers_rideshares($passengerID);
+
+    //The internet suggests this mysqli_fetch_assoc($result)
     while($row = mysqli_fetch_array($result)){
         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
         echo "<td>" . htmlentities($row['destination']) . "</td>";
@@ -59,7 +61,7 @@ Past RideShares -
         <th>Price</th>
     </tr>
     <?php
-    $passengerID =  RideshareDB::getInstance()->get_passenger_id($_SESSION['user']);
+    $passengerID =  RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
     $result = RideshareDB::getInstance()->get_past_passengers_rideshares($passengerID);
     while($row = mysqli_fetch_array($result)){
         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
