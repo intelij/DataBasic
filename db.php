@@ -1,7 +1,3 @@
-<!-- Utility PHP -->
-<!-- Based off of https://netbeans.org/kb/docs/php/wish-list-lesson2.html -->
-
-
 <?php
 class RideshareDB extends mysqli
 {
@@ -62,12 +58,30 @@ class RideshareDB extends mysqli
         return $passengerID;
     }
 
+    //TRUE(1) is Passenger
+    //FALSE(0) is Driver
+    public function get_user_type($name){
+        $name = $this->real_escape_string($name);
+
+        $result = $this->query("SELECT 1 FROM Passenger WHERE name = '"
+            . $name . "'");
+        return $result->data_seek(0);
+    }
+
     public function verify_user_credentials($name, $password)
     {
         $name = $this->real_escape_string($name);
         $password = $this->real_escape_string($password);
+
         $result = $this->query("SELECT 1 FROM Driver WHERE name = '"
             . $name . "' AND password = '" . $password . "'");
+
+        if($result->data_seek(0) == FALSE) {
+            $result = $this->query("SELECT 1 FROM Passenger WHERE name = '"
+                . $name . "' AND password = '" . $password . "'");
+            return $result->data_seek(0);
+        }
+
         return $result->data_seek(0);
     }
 
@@ -97,6 +111,22 @@ class RideshareDB extends mysqli
          )");
     }
 
+    public function create_passenger($name, $email, $phoneNum, $password){
+        $name = $this->real_escape_string($name);
+        $email = $this->real_escape_string($email);
+        $phoneNum = $this->real_escape_string($phoneNum);
+        $password = $this->real_escape_string($password);
+
+        $this->query("INSERT INTO Passenger (name, email, phoneNum, password)" .
+            "VALUES ('" . $name . "',
+         '" . $email . "',
+         '" . $phoneNum . "',
+         '" . $password . "'
+         )");
+
+
+    }
+
     function format_date_for_sql($date){
         if ($date == "")
             return null;
@@ -122,7 +152,6 @@ class RideshareDB extends mysqli
 
 
     }
-
 
     public function create_rideshare($RID, $DID, $destination, $price, $address, $postalCode, $province,
                                      $city, $rdate, $rtime, $Ctime, $CDate,$seats,$seatsLeft){
@@ -188,4 +217,3 @@ class RideshareDB extends mysqli
     }
 
 }
-    ?>

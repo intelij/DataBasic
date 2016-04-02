@@ -21,9 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     }
 
     if (!$passwordIsEmpty && !$password2IsEmpty && $passwordIsValid) {
-        RideshareDB::getInstance()->create_driver($_POST['user'],
-            $_POST['email'],$_POST['phoneNum'], $_POST['licenseNum'],$_POST['password']);
-        RideshareDB::getInstance()->insert_Car($_POST['licenseNum'], $_POST['type'], $_POST['color']);
+        RideshareDB::getInstance()->create_passenger($_POST['user'],
+            $_POST['email'],$_POST['phoneNum'],$_POST['password']);
 
         header('Location: index.php');
         exit;
@@ -40,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 <h3>User Information</h3>
 
-<form name="addDriver" action="createdriver.php" method="POST">
+<form name="addPass" action="createpassenger.php" method="POST">
 
     User name: <input type="text" name="user"/><br/>
     Email:  <input type="text" name="email"/><br/>
@@ -67,16 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     }
     ?>
 
-    <h3>Car Information</h3>
-    Num: <input type="text" name="licenseNum" value="<?php echo $car['licenseNum']; ?>" /><br/>
-    Type:
-    <input type="text" name="type"  value="<?php echo $car['type']; ?>" /><br/>
-    Color:
-    <input type="text" name="color"  value="<?php echo $car['color']; ?>" /><br/>
-
     <br/>
 
-    <input type="submit" name="saveDriver" value="Save Changes"/>
+    <input type="submit" name="savePass" value="Save Changes"/>
 </form>
 </body>
 </html>

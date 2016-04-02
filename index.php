@@ -8,6 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($logonSuccess == true) {
         session_start();
         $_SESSION['user'] = $_POST['user'];
+
+        if (RideshareDB::getInstance()->get_user_type($_POST['user'])){
+            header('Location: passengerhomepage.php');
+            exit;
+        }
         header('Location: driverhomepage.php');
         exit;
     }
@@ -20,7 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-Don't have an account? <a href="createdriver.php">Create now</a>
+Create a Driver <a href="createdriver.php">here.</a>
+
+Create a Passenger <a href="createpassenger.php">here.</a>
 
 <form name="logon" action="index.php" method="POST" >
     Username: <input type="text" name="user"/>
