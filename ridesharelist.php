@@ -20,6 +20,7 @@ require_once("db.php");
             <th>Destination</th>
             <th>Price</th>
             <th>Seats Left</th>
+            <th>Link</th>
         </tr>
         <?php
         $result = RideshareDB::getInstance()->get_available_rideshares();
@@ -28,7 +29,8 @@ require_once("db.php");
             echo "<td>" . htmlentities($row['name']) . "</td>";
             echo "<td>" . htmlentities($row['destination']) . "</td>";
             echo "<td>" . htmlentities($row['price']) . "</td>";
-            echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
+            echo "<td>" . htmlentities($row['seatsLeft']) . "</td>";
+            echo "<td>" . htmlentities("http://localhost:8000/rideshareinfo.php". "/" . $row['RID']) . "</td></tr>\n";
 
         }
         mysqli_free_result($result);
