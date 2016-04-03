@@ -13,9 +13,9 @@ if (array_key_exists("user", $_SESSION)) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <link href="/Public/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="/Public/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/Public/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
     <?php
     require_once("db.php");
