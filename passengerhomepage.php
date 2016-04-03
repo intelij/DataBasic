@@ -67,8 +67,6 @@ require_once("db.php");
                     <?php
                     $passengerID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
                     $result = RideshareDB::getInstance()->get_current_passengers_rideshares($passengerID);
-
-                    //The internet suggests this mysqli_fetch_assoc($result)
                     while ($row = mysqli_fetch_array($result)) {
                         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
                         echo "<td>" . htmlentities($row['destination']) . "</td>";

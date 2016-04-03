@@ -48,14 +48,24 @@ class RideshareDB extends mysqli
         $name = $this->real_escape_string($name);
         $driverID = $this->query("SELECT DID FROM Driver WHERE name = '"
             . $name . "'");
-        return $driverID;
+
+        if ($driverID->num_rows > 0){
+            $row = $driverID->fetch_row();
+            return $row[0];
+        } else
+            return null;
     }
 
     public function get_passenger_id_by_name($name) {
         $name = $this->real_escape_string($name);
         $passengerID = $this->query("SELECT PID FROM Passenger WHERE name = '"
             . $name . "'");
-        return $passengerID;
+
+        if ($passengerID->num_rows > 0){
+            $row = $passengerID->fetch_row();
+            return $row[0];
+        } else
+            return null;
     }
 
     //TRUE(1) is Passenger
