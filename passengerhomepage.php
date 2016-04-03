@@ -9,6 +9,11 @@ if (array_key_exists("user", $_SESSION)) {
 
 require_once("db.php");
 
+if (!(RideshareDB::getInstance()->get_user_type($_SESSION['user']))){
+    header('Location: driverhomepage.php');
+    exit;
+}
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
