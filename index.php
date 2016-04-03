@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($logonSuccess == true) {
         session_start();
         $_SESSION['user'] = $_POST['user'];
+        // $_SESSION['PID'] = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
 
         if (RideshareDB::getInstance()->get_user_type($_POST['user'])){
             header('Location: passengerhomepage.php');
@@ -17,19 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         exit;
     }
 }
+
 ?>
 
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="/Public/css/bootstrap.min.css" rel="stylesheet">
-
-    <script type="text/javascript" src="/Public/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/Public/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">

@@ -9,15 +9,20 @@ if (array_key_exists("user", $_SESSION)) {
 
 require_once("db.php");
 
+if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
+    header('Location: passengerhomepage.php');
+    exit;
+}
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="/Public/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="/Public/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/Public/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">

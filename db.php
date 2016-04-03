@@ -147,6 +147,7 @@ class RideshareDB extends mysqli
 
     }
 
+
     public function create_participates($PID, $RID, $Type){
 
         $PID = $this->real_escape_string($PID);
@@ -154,10 +155,16 @@ class RideshareDB extends mysqli
         $Type = $this->real_escape_string($Type);
 
         $this->query("INSERT INTO Participates (PID, RID, Type)" .
-            "VALUES (" . $PID . ",
-         " . $RID . ",
-         " . $Type . "
+            "VALUES ('" . $PID . "',
+         '" . $RID . "',
+         '" . $Type . "'
          )");
+    }
+
+    public function check_participates($PID, $RID){
+        return $this->query("SELECT P.PID
+                            FROM Participates P
+                            WHERE P.RID = $RID AND P.PID = $PID");
     }
 
 
@@ -222,7 +229,7 @@ class RideshareDB extends mysqli
 
     public function get_current_passengers_rideshares($passengerID){
     return $this->query("SELECT rdate, destination, price, seatsLeft
-                  FROM RideShare R, Driver D, Participates Pa
+                  FROM RideShare R, Passenger P, Participates Pa
                   WHERE $passengerID = P.PID AND P.PID = Pa.PID AND R.RID = Pa.RID AND R.rdate >= curdate()");
     }
 

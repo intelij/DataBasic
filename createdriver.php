@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="/Public/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="/Public/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/Public/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -74,28 +74,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <label for="username">
                             Username
                         </label>
-                        <input type="text" class="form-control" name="user"/>
+                        <input type="text" class="form-control" name="user" required/>
                     </div>
 
                     <div class="form-group">
                         <label for="email">
                             Email
                         </label>
-                        <input class="form-control" type="text" name="email"/>
+                        <input class="form-control" type="text" name="email" required/>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">
                             Phone Number
                         </label>
-                        <input class="form-control" type="text" name="phoneNum"/>
+                        <input class="form-control" type="text" name="phoneNum" required/>
                     </div>
 
                     <div class="form-group">
                         <label for="pass">
                             Password
                         </label>
-                        <input class="form-control" type="password" name="password"/>
+                        <input class="form-control" type="password" name="password" required/>
                     </div>
 
                     <?php
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <label for="pass2">
                             Confirm password
                         </label>
-                        <input class="form-control" type="password" name="password2"/>
+                        <input class="form-control" type="password" name="password2" required/>
                     </div>
 
                     <?php
@@ -128,17 +128,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                     <div class="form-group">
                         <label for="licenseNum">License Number</label>
-                        <input class="form-control" type="text" name="licenseNum"/>
+                        <input class="form-control" type="text" name="licenseNum" required/>
                     </div>
 
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <input class="form-control" type="text" name="type"/>
+                        <input class="form-control" type="text" name="type" required/>
                     </div>
 
                     <div class="form-group">
                         <label for="color">Color</label>
-                        <input class="form-control" type="text" name="color"/>
+                        <input class="form-control" type="text" name="color" required/>
                     </div>
 
                     <button type="submit" value="Login" class="btn btn-default">Submit</button>

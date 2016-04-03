@@ -10,13 +10,22 @@ if (!mysqli_ping($link)) {
 }
 
 $RideID = $_GET['RideID'];
+$CPID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    // TODO
 
-    RideshareDB::getInstance()->create_participates($_POST['PID'], $_POST['RID'], $_POST['type']
+
+    RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']
     );
-    exit;
+
+    if (RideshareDB::getInstance()->check_participates($CPID, $RideID)->num_rows > 0){
+        echo "you're already in this rideshare!";
+    } else {
+        echo "you have successfully joined the rideshare!";
+    }
+
+
+    //exit;
 
 }
 
@@ -27,6 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <h3>Rideshare Info</h3>
@@ -67,18 +79,23 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
+
+
 ?>
 </table>
 
-<form name="joinRideshare" action="rideshareinfo.php" method="post">
+
+<form name="joinRideshare" action="rideshareinfo.php?RideID=<?php echo $RideID; ?>" method="POST">
     Select payment type: <br>
-    <select>
+    <select name="type">
         <option value="cash">Cash</option>
         <option value="paypal">PayPal</option>
     </select> <br>
-    <input type="submit" value="Join"><br>
+    <input type="submit" name="joinit" value="Join"><br>
 
 </form>
+
+
 
 </body>
 
