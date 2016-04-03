@@ -36,6 +36,8 @@ require_once("db.php");
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+
+
                         <li>
                             <a href="/driverhomepage.php">Home</a>
                         </li>
@@ -50,6 +52,10 @@ require_once("db.php");
                 <h2><?php echo "Hello " . $_SESSION['user'];?>!</h2>
 
                 <a href="createrideshare.php" class="btn btn-primary">Create Rideshare</a>
+
+                <form action="ridesharelist.php">
+                    <input type="submit" value="Submit">
+                </form>
 
             </div>
             <div class="col-md-12">
