@@ -18,7 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']
     );
 
-    exit;
+    if (RideshareDB::getInstance()->check_participates($CPID, $RideID)->num_rows > 0){
+        echo "you're already in this rideshare!";
+    } else {
+        echo "you have successfully joined the rideshare!";
+    }
+
+
+    //exit;
 
 }
 
