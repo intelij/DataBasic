@@ -148,16 +148,11 @@ class RideshareDB extends mysqli
          " . $RID . ",
          " . $Type . "
          )");
-
-
-
     }
 
 
-    public function create_rideshare($DID, $destination, $price, $address, $postalCode, $province,
-                                     $city, $rdate, $rtime, $Ctime, $CDate,$seats,$seatsLeft){
+    public function create_rideshare($DID, $destination, $price, $address, $postalCode, $province, $city, $rdate, $rtime, $Ctime, $CDate, $seats, $seatsLeft){
         //initialize variables
-        $RID = $this->real_escape_string($RID);
         $DID = $this->real_escape_string($DID);
         $destination = $this->real_escape_string($destination);
         $price = $this->real_escape_string($price);
@@ -166,11 +161,11 @@ class RideshareDB extends mysqli
         $province = $this->real_escape_string($province);
         $city = $this->real_escape_string($city);
         $rdate = $this->real_escape_string($rdate);
-        $rdate = $this->format_date_for_sql($rdate);
+        // $rdate = $this->format_date_for_sql($rdate);
         $rtime = $this->real_escape_string($rtime);
         $Ctime = $this->real_escape_string($Ctime);
         $CDate = $this->real_escape_string($CDate);
-        $CDate = $this->format_date_for_sql($CDate);
+      //  $CDate = $this->format_date_for_sql($CDate);
         $seats = $this->real_escape_string($seats);
         $seatsLeft = $this->real_escape_string($seatsLeft);
 
