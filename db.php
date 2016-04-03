@@ -151,31 +151,32 @@ class RideshareDB extends mysqli
     }
 
 
-    public function create_rideshare($DID, $destination, $price, $address, $postalCode, $province, $city, $rdate, $rtime, $Ctime, $CDate, $seats, $seatsLeft){
+    public function create_rideshare($DID, $postalCode,
+                                     $destination, $price, $address,
+                                     $rdate, $rtime, $seats, $seatsLeft,$city, $province){
         //initialize variables
         $DID = $this->real_escape_string($DID);
+        $postalCode = $this->real_escape_string($postalCode);
         $destination = $this->real_escape_string($destination);
         $price = $this->real_escape_string($price);
         $address = $this->real_escape_string($address);
-        $postalCode = $this->real_escape_string($postalCode);
-        $province = $this->real_escape_string($province);
-        $city = $this->real_escape_string($city);
         $rdate = $this->real_escape_string($rdate);
-        // $rdate = $this->format_date_for_sql($rdate);
+        $rdate = $this->format_date_for_sql($rdate);
         $rtime = $this->real_escape_string($rtime);
-        $Ctime = $this->real_escape_string($Ctime);
-        $CDate = $this->real_escape_string($CDate);
-      //  $CDate = $this->format_date_for_sql($CDate);
         $seats = $this->real_escape_string($seats);
         $seatsLeft = $this->real_escape_string($seatsLeft);
+        $city = $this->real_escape_string($city);
+        $province = $this->real_escape_string($province);
 
-        $this->query("INSERT INTO RideShare (DID,  postalCode, destination, address, price, rdate, rtime, Ctime, CDate, seats, seatsLeft)" .
+
+
+
+        $this->query("INSERT INTO RideShare (DID,  postalCode, destination, address, price, rdate, rtime, seats, seatsLeft, Cdatetime)" .
             " VALUES ( " . $DID . ",
              " . $postalCode .", " . $destination . ",
              " . $address . "," . $price . ",
              " . $rdate . "," . $rtime .",
-             " . $Ctime . ", " . $CDate . ",
-             " . $seats . ", " . $seatsLeft .")");
+             " . $seats . ", " . $seatsLeft . ", NOW())");
 
         $this->query("INSERT INTO Location (postalCode, city, province)" . " VALUES(" . $postalCode . ", " . $city . ", " . $province . ")");
 

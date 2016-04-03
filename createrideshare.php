@@ -4,10 +4,6 @@
 
 require_once("db.php");
 
-$link = mysqli_connect('databasic.cvhyllwoxxb3.us-west-1.rds.amazonaws.com', 'DataBasicTeam', 'CPSC304!');
-if (!mysqli_ping($link)) {
-    die('Not connected : ' . mysqli_error());
-}
 
 // Debugging
 // Plan Form -> Caller -> Handler -> INSERT
@@ -24,10 +20,10 @@ $address = '2205 Lower Mall';
 $rdate = 'December 25, 2010'; // format_date_for_sql()
 $rtime = '11:05 AM';
 $mySql_rtime = date('H:i:s',strtotime('11:05 AM'));
-$Ctime = date('H:i:s');
-$CDate = 'December 25, 2010';
 $seats = '4';
 $seatsLeft = $seats;
+$city = 'Vancouver';
+$province = 'BC';
 
 echo "<h3>DID: $DID </h3>";
 echo "<h3>postalCode: $postalCode</h3>";
@@ -36,12 +32,10 @@ echo "<h3>price: $price</h3>";
 echo "<h3>address: $address</h3>";
 echo "<h3>rdate: $rdate</h3>";
 echo "<h3>rtime: $mySql_rtime</h3>";
-echo "<h3>Ctime: $Ctime</h3>";
-echo "<h3>CDate: $CDate</h3>";
 echo "<h3>seats: $seats</h3>";
 echo "<h3>seatsLeft: $seatsLeft</h3>";
-
-echo "<h3>time_input: $time_rtime</h3>";
+echo "<h3>city: $city</h3>";
+echo "<h3>province: $province</h3>";
 
 
 
@@ -57,26 +51,21 @@ echo "<h3>time_input: $time_rtime</h3>";
 // $seatsLeft = $_POST['seats'];
 
 
-/*if ($_SERVER['REQUEST_METHOD'] == "POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST"){
+
     // RID, DID, Ctime, Cdate, seatsLeft not on form.
     // These values need to be created upon submit
-    RideshareDB::getInstance()->create_rideshare($DID,$_POST['destination'],
+    /*RideshareDB::getInstance()->create_rideshare($DID,$_POST['destination'],
         $_POST['price'],$_POST['address'],
         $_POST['postalCode'],$_POST['province'],$_POST['city'],$_POST['rdate'], $_POST['rtime']
         ,$Ctime, $CDate,
-        $_POST['seats'],$seatsLeft);
+        $_POST['seats'],$seatsLeft);*/
 
-    // Create a mock instance with hardcoded values
-    //
-
-    RideshareDB::getInstance()->create_rideshare($DID,'Whistler',
-        '100','2205 Lower Mall',
-       'V6T1Z4','BC','Vancouver',$_POST['rdate'], $_POST['rtime']
-        ,$Ctime, $CDate,
-        '4',$seatsLeft);
+    RideshareDB::getInstance()->create_rideshare($DID, $postalCode,
+        $destination, $price, $address, $rdate, $mySql_rtime, $seats, $seatsLeft,$city, $province);
     exit;
 
-}*/
+}
 
 ?>
 
