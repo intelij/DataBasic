@@ -41,10 +41,10 @@ if (array_key_exists("user", $_SESSION)) {
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">Link</a>
+                            <a href="#">Home</a>
                         </li>
                         <li>
-                            <a href="#">Link</a>
+                            <a href="/ridesharelist.php">Rideshare List</a>
                         </li>
                 </div>
             </nav>

@@ -53,10 +53,6 @@ require_once("db.php");
 
                 <a href="createrideshare.php" class="btn btn-primary">Create Rideshare</a>
 
-                <form action="ridesharelist.php">
-                    <input type="submit" value="Submit">
-                </form>
-
             </div>
             <div class="col-md-12">
                 <h3>Ongoing RideShares: </h3>
