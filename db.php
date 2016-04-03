@@ -189,7 +189,6 @@ class RideshareDB extends mysqli
              " . $seats . ", " . $seatsLeft . ", NOW())");
 
         $this->query("INSERT INTO Location (postalCode, city, province)" . " VALUES(" . $postalCode . ", " . $city . ", " . $province . ")");
-
     }
 
     public function get_available_rideshares(){
@@ -224,7 +223,7 @@ class RideshareDB extends mysqli
 
     public function get_current_passengers_rideshares($passengerID){
     return $this->query("SELECT rdate, destination, price, seatsLeft
-                  FROM RideShare R, Driver D, Participates Pa
+                  FROM RideShare R, Passenger P, Participates Pa
                   WHERE $passengerID = P.PID AND P.PID = Pa.PID AND R.RID = Pa.RID AND R.rdate >= curdate()");
     }
 
