@@ -160,6 +160,12 @@ class RideshareDB extends mysqli
          )");
     }
 
+    public function check_participates($PID, $RID){
+        return $this->query("SELECT P.PID
+                            FROM Participates P
+                            WHERE P.RID = $RID AND P.PID = $PID");
+    }
+
 
     public function create_rideshare($DID, $postalCode,
                                      $destination, $price, $address,
