@@ -193,7 +193,7 @@ class RideshareDB extends mysqli
     }
 
     public function get_rideshare_byid($RID){
-        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
+        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID, address, rtime
                   FROM RideShare R, Driver D
                   WHERE R.RID = $RID AND R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() /*AND r.rtime >= cast(gettime() as time)*/");
     }

@@ -8,10 +8,8 @@ require_once("db.php");
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
     <html>
     <body>
-    Available RideShares
+    <h3>Available RideShares</h3>
     <br>
-
-
 
     <table border="black">
         <tr>
@@ -31,7 +29,7 @@ require_once("db.php");
             echo "<td>" . htmlentities($row['destination']) . "</td>";
             echo "<td>" . htmlentities($row['price']) . "</td>";
             echo "<td>" . htmlentities($row['seatsLeft']) . "</td>";
-            echo "<td>" . htmlentities() . "<a href=\"rideshareinfo.php?RideID=$RideID\">Go</a>"."</td>";
+            echo "<td>" . htmlentities("") . "<a href=\"rideshareinfo.php?RideID=$RideID\">Go</a>"."</td>";
 
         }
         mysqli_free_result($result);

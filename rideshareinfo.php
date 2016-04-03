@@ -34,11 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <table border="black">
     <tr>
         <th>Date</th>
+        <th>Time</th>
         <th>Driver Name</th>
         <th>Destination</th>
+        <th>PickUp</th>
         <th>Price</th>
+        <th>Seats</th>
         <th>Seats Left</th>
-        <th>Link</th>
     </tr>
 
 <?php
@@ -53,16 +55,20 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
+        echo "<td>" . htmlentities($row['rtime']) . "</td>";
         echo "<td>" . htmlentities($row['name']) . "</td>";
         echo "<td>" . htmlentities($row['destination']) . "</td>";
+        echo "<td>" . htmlentities($row['address']) . "</td>";
         echo "<td>" . htmlentities($row['price']) . "</td>";
+        echo "<td>" . htmlentities($row['seats']) . "</td>";
         echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
     }
 } else {
     echo "0 results";
 }
-$con->close();
+
 ?>
+</table>
 
 <form name="joinRideshare" action="rideshareinfo.php" method="post">
     Select payment type: <br>
