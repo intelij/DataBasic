@@ -1,68 +1,30 @@
-<!-- CreateRideShare (Driver View) -->
-
 <?php
-
+session_start();
 require_once("db.php");
 
-
-// Debugging
-// Plan Form -> Caller -> Handler -> INSERT
-// Assign variables
-// Convert variables where appropriate
-// Echo variables
-// call create_rideshare
-
-$DID = '1';
-$postalCode = 'V6T1Z4';
-$destination = 'Whistler';
-$price = '10';
-$address = '2205 Lower Mall';
-$rdate = 'December 25, 2010'; // format_date_for_sql()
-$rtime = '11:05 AM';
-$mySql_rtime = date('H:i:s',strtotime('11:05 AM'));
-$seats = '4';
+// Get POST variables
+$DID = RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
+// $DID = '1';
+$postalCode = $_POST['postalCode'];
+$destination = $_POST['destination'];
+$price = $_POST['price'];
+$address = $_POST['address'];
+$rdate = $_POST['rdate']; // format_date_for_sql()
+$rtime = $_POST['rtime'];
+date_default_timezone_set('America/Vancouver');
+$mySql_rtime = date('H:i:s',strtotime($rtime));
+$seats = $_POST['seats'];
 $seatsLeft = $seats;
-$city = 'Vancouver';
-$province = 'BC';
-
-echo "<h3>DID: $DID </h3>";
-echo "<h3>postalCode: $postalCode</h3>";
-echo "<h3>destination: $destination</h3>";
-echo "<h3>price: $price</h3>";
-echo "<h3>address: $address</h3>";
-echo "<h3>rdate: $rdate</h3>";
-echo "<h3>rtime: $mySql_rtime</h3>";
-echo "<h3>seats: $seats</h3>";
-echo "<h3>seatsLeft: $seatsLeft</h3>";
-echo "<h3>city: $city</h3>";
-echo "<h3>province: $province</h3>";
-
-
-
-
-//driver id is current session driver id
-//get_driverid needs to be implemented in db.php
-// get_driverid($_SESSION['user']);
-
-// $Ctime = time();
-// date_default_timezone_set('America/Vancouver');
-// $CDate = date("y/m/d");
-// set seatsLeft to initial value of seats
-// $seatsLeft = $_POST['seats'];
+$city = $_POST['city'];
+$province = $_POST['province'];
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
-    // RID, DID, Ctime, Cdate, seatsLeft not on form.
-    // These values need to be created upon submit
-    /*RideshareDB::getInstance()->create_rideshare($DID,$_POST['destination'],
-        $_POST['price'],$_POST['address'],
-        $_POST['postalCode'],$_POST['province'],$_POST['city'],$_POST['rdate'], $_POST['rtime']
-        ,$Ctime, $CDate,
-        $_POST['seats'],$seatsLeft);*/
-
     RideshareDB::getInstance()->create_rideshare($DID, $postalCode,
         $destination, $price, $address, $rdate, $mySql_rtime, $seats, $seatsLeft,$city, $province);
+
+    header('Location: driverhomepage.php');
     exit;
 
 }
@@ -113,69 +75,65 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         <label for = "Destination:">
             Destination:
         </label>
-        <input class = "form-control" type="text" name = "destination"/>
+        <input class = "form-control" type="text" name = "destination" required/>
     </div>
 
     <div class = "form-group">
         <label for = "Price:">
             Price:
         </label>
-        <input class = "form-control" type="text" name="price"/>
+        <input class = "form-control" type="text" name="price" required/>
     </div>
 
     <div class = "form-group">
         <label for = "Address:">
             Address:
         </label>
-        <input class = "form-control" type="text" name="address"/>
+        <input class = "form-control" type="text" name="address" required/>
     </div>
 
     <div class = "form-group">
         <label for = "Postal Code:">
             Postal Code:
         </label>
-        <input class = "form-control" type="text" name="postalCode"/>
+        <input class = "form-control" type="text" name="postalCode" required/>
     </div>
 
     <div class = "form-group">
         <label for = "Province:">
             Province:
         </label>
-        <input class = "form-control" type="text" name="province"/>
+        <input class = "form-control" type="text" name="province" required/>
     </div>
 
     <div class = "form-group">
         <label for = "City:">
             City:
         </label>
-        <input class = "form-control" type="text" name="city"/>
+        <input class = "form-control" type="text" name="city" required/>
     </div>
 
     <div class = "form-group">
         <label for = "Departure Date:">
-            Departure Date:
+            Departure Date: (Month Date, Year)
         </label>
-        <input class = "form-control" type="text" name="rdate"/>
+        <input class = "form-control" type="text" name="rdate" required/>
     </div>
 
     <div class = "form-group">
         <label for = "Departure Time:">
             Departure Time:
         </label>
-        <input class = "form-control" type="time" name="rtime"/>
+        <input class = "form-control" type="time" name="rtime" required/>
     </div>
-        <!-- Ctime and Cdate shouldn't have input parameters -->
-        <!-- Should be created upon submit-->
-
 
     <div class = "form-group">
         <label for = "Seats: ">
             Seats:
         </label>
-        <input class = "form-control" type="text" name="seats"/>
+        <input class = "form-control" type="text" name="seats" required/>
     </div>
 
-    <!-- SeatsLeft should be initialized using php to seats initially when rideshare is created-->
     <input type="submit" value="Create New Rideshare" class = "btn btn-dfault"><br>
 </form>
 </body>
