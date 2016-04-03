@@ -10,12 +10,14 @@ if (!mysqli_ping($link)) {
 }
 
 $RideID = $_GET['RideID'];
+$CPID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    // TODO
 
-    RideshareDB::getInstance()->create_participates($_POST['PID'], $_POST['RID'], $_POST['type']
+
+    RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']
     );
+
     exit;
 
 }
@@ -67,18 +69,23 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
+
+
 ?>
 </table>
 
-<form name="joinRideshare" action="rideshareinfo.php" method="post">
+
+<form name="joinRideshare" action="rideshareinfo.php?RideID=<?php echo $RideID; ?>" method="POST">
     Select payment type: <br>
-    <select>
+    <select name="type">
         <option value="cash">Cash</option>
         <option value="paypal">PayPal</option>
     </select> <br>
-    <input type="submit" value="Join"><br>
+    <input type="submit" name="joinit" value="Join"><br>
 
 </form>
+
+
 
 </body>
 
