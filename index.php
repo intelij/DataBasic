@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($logonSuccess == true) {
         session_start();
         $_SESSION['user'] = $_POST['user'];
+        // $_SESSION['PID'] = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
 
         if (RideshareDB::getInstance()->get_user_type($_POST['user'])){
             header('Location: passengerhomepage.php');
