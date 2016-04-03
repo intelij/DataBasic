@@ -44,11 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 <form name="addPass" action="createpassenger.php" method="POST">
 
-    User name: <input type="text" name="user"/><br/>
-    Email:  <input type="text" name="email"/><br/>
-    Phone Number: <input type="text" name="phoneNum"/><br/>
+    User name: <input type="text" name="user" required/><br/>
+    Email:  <input type="text" name="email" required/><br/>
+    Phone Number: <input type="text" name="phoneNum" required/><br/>
     <br/>
-    Password: <input type="password" name="password"/><br/>
+    Password: <input type="password" name="password" required/><br/>
     <?php
     if ($passwordIsEmpty) {
         echo ("Enter the password, please");
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     }
     ?>
 
-    Please confirm your password: <input type="password" name="password2"/><br/>
+    Please confirm your password: <input type="password" name="password2" required/><br/>
 
     <?php
     if ($password2IsEmpty) {
