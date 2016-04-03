@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (array_key_exists("user", $_SESSION)) {
-    echo "Hello " . $_SESSION['user'];
+    //echo "Hello " . $_SESSION['user'];
 } else {
     header('Location: index.php');
     exit;
@@ -15,62 +15,95 @@ require_once("db.php");
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/Public/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/Public/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Public/js/bootstrap.js"></script>
 </head>
 <body>
-<br>
-<form action="/ridesharelist.php">
-    <input type="submit" value="Find a RideShare">
-</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
 
-<br><br>
-Here are Your Participated RideShares:
-<br>
-<br>
-Your Participated RideShares -
-<table border="black">
-    <tr>
-        <th>Date</th>
-        <th>Destination</th>
-        <th>Price</th>
-        <th>Seats Left</th>
-    </tr>
-    <?php
-    $passengerID =  RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
-    $result = RideshareDB::getInstance()->get_current_passengers_rideshares($passengerID);
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.php">Rideshare App</a>
+                </div>
 
-    //The internet suggests this mysqli_fetch_assoc($result)
-    while($row = mysqli_fetch_array($result)){
-        echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
-        echo "<td>" . htmlentities($row['destination']) . "</td>";
-        echo "<td>" . htmlentities($row['price']) . "</td>";
-        echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/driverhomepage.php">Home</a>
+                        </li>
+                        <li>
+                            <a href="/ridesharelist.php">Rideshare List</a>
+                        </li>
+                </div>
+            </nav>
 
-    }
-    mysqli_free_result($result);
-    ?>
-</table>
+            <div class="jumbotron">
 
-<br><br>
+                <h2><?php if (array_key_exists("user", $_SESSION)) {
+                        echo "Hello " . $_SESSION['user'];
+                    } ?>!</h2>
 
-Past RideShares -
+                <a href="ridesharelist.php" class="btn btn-primary">Find a Rideshare</a>
 
-<table border="black">
-    <tr>
-        <th>Date</th>
-        <th>Destination</th>
-        <th>Price</th>
-    </tr>
-    <?php
-    $passengerID =  RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
-    $result = RideshareDB::getInstance()->get_past_passengers_rideshares($passengerID);
-    while($row = mysqli_fetch_array($result)){
-        echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
-        echo "<td>" . htmlentities($row['destination']) . "</td>";
-        echo "<td>" . htmlentities($row['price']) . "</td></td></tr>\n";
-    }
-    mysqli_free_result($result);
-    ?>
-</table>
+            </div>
+
+            <div class="col-md-12">
+                <h3>Upcoming RideShares: </h3>
+                <table class="table table-bordered" border="black">
+                    <tr>
+                        <th>Date</th>
+                        <th>Destination</th>
+                        <th>Price</th>
+                        <th>Seats Left</th>
+                    </tr>
+                    <?php
+                    $passengerID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
+                    $result = RideshareDB::getInstance()->get_current_passengers_rideshares($passengerID);
+
+                    //The internet suggests this mysqli_fetch_assoc($result)
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
+                        echo "<td>" . htmlentities($row['destination']) . "</td>";
+                        echo "<td>" . htmlentities($row['price']) . "</td>";
+                        echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
+
+                    }
+                    mysqli_free_result($result);
+                    ?>
+                </table>
+
+
+                <h3>Past RideShares: </h3>
+
+                <table class="table table-bordered" border="black">
+                    <tr>
+                        <th>Date</th>
+                        <th>Destination</th>
+                        <th>Price</th>
+                    </tr>
+                    <?php
+                    $passengerID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
+                    $result = RideshareDB::getInstance()->get_past_passengers_rideshares($passengerID);
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
+                        echo "<td>" . htmlentities($row['destination']) . "</td>";
+                        echo "<td>" . htmlentities($row['price']) . "</td></td></tr>\n";
+                    }
+                    mysqli_free_result($result);
+                    ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 
