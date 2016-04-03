@@ -95,22 +95,21 @@ class RideshareDB extends mysqli
         return $result->data_seek(0);
     }
 
-    public function insert_car($licenseNum, $type, $color)
-    {
-        $licenseNum = $this->real_escape_string($licenseNum);
-        $type = $this->real_escape_string($type);
-        $color = $this->real_escape_string($color);
 
-        $this->query("INSERT INTO Car (licenseNum, type, color)" .
-            " VALUES ('" . $licenseNum . "', '" . $type. "', '" .$color."')");
-    }
-
-    public function create_driver($name, $email, $phoneNum, $password, $licenseNum) {
+    public function create_driver($name, $email, $phoneNum, $password, $licenseNum, $type, $color) {
         $name = $this->real_escape_string($name);
         $email = $this->real_escape_string($email);
         $phoneNum = $this->real_escape_string($phoneNum);
         $licenseNum = $this->real_escape_string($licenseNum);
         $password = $this->real_escape_string($password);
+        $type = $this->real_escape_string($type);
+        $color = $this->real_escape_string($color);
+
+        $this->query("INSERT INTO Car (licenseNum, type, color)" .
+            " VALUES ('" . $licenseNum . "',
+             '" . $type. "',
+              '" .$color."'
+            )");
 
         $this->query("INSERT INTO Driver (name, email, phoneNum, password, licenseNum)" .
         "VALUES ('" . $name . "',

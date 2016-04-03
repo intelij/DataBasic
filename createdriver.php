@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (!$passwordIsEmpty && !$password2IsEmpty && $passwordIsValid) {
         RideshareDB::getInstance()->create_driver($_POST['user'],
-            $_POST['email'], $_POST['phoneNum'], $_POST['licenseNum'], $_POST['password']);
-        RideshareDB::getInstance()->insert_Car($_POST['licenseNum'], $_POST['type'], $_POST['color']);
+            $_POST['email'], $_POST['phoneNum'], $_POST['password'],
+            $_POST['licenseNum'],$_POST['type'], $_POST['color'] );
 
         header('Location: index.php');
         exit;
