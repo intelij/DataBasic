@@ -148,6 +148,7 @@ class RideshareDB extends mysqli
 
 
     public function create_participates($PID, $RID, $Type){
+
         $PID = $this->real_escape_string($PID);
         $RID = $this->real_escape_string($RID);
         $Type = $this->real_escape_string($Type);
@@ -168,8 +169,8 @@ class RideshareDB extends mysqli
 
     public function create_rideshare($DID, $postalCode,
                                      $destination, $price, $address,
-                                     $rdate, $rtime, $seats, $seatsLeft,$city, $province){
-        //initialize variables
+                                     $rdate, $rtime, $seats, $seatsLeft, $city, $province){
+
         $DID = $this->real_escape_string($DID);
         $postalCode = $this->real_escape_string($postalCode);
         $destination = $this->real_escape_string($destination);
@@ -183,17 +184,16 @@ class RideshareDB extends mysqli
         $city = $this->real_escape_string($city);
         $province = $this->real_escape_string($province);
 
+        $this->query("INSERT INTO Location (postalCode, city, province) VALUES ('$postalCode', '$city','$province')
+        ON DUPLICATE KEY UPDATE postalCode = '$postalCode'");
 
+        $this->query("INSERT INTO RideShare (DID,  postalCode, destination, address, price, rdate, rtime, seats, seatsLeft, Cdatetime)
+                      VALUES ( '$DID',
+                                 '$postalCode', '$destination',
+                                 '$address','$price',
+                                 '$rdate','$rtime',
+                                 '$seats','$seatsLeft', NOW())");
 
-
-        $this->query("INSERT INTO RideShare (DID,  postalCode, destination, address, price, rdate, rtime, seats, seatsLeft, Cdatetime)" .
-            " VALUES ( " . $DID . ",
-             " . $postalCode .", " . $destination . ",
-             " . $address . "," . $price . ",
-             " . $rdate . "," . $rtime .",
-             " . $seats . ", " . $seatsLeft . ", NOW())");
-
-        $this->query("INSERT INTO Location (postalCode, city, province)" . " VALUES(" . $postalCode . ", " . $city . ", " . $province . ")");
     }
 
     public function get_available_rideshares(){
