@@ -9,14 +9,13 @@ if (!mysqli_ping($link)) {
     die('Not connected : ' . mysqli_error());
 }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+$RideID = $_GET['RideID'];
 
-// RID, DID, Ctime, Cdate, seatsLeft not on form.
-// These values need to be created upon submit
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    // TODO
 
     RideshareDB::getInstance()->create_participates($_POST['PID'], $_POST['RID'], $_POST['type']
     );
-
     exit;
 
 }
@@ -25,36 +24,58 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
 <h3>Rideshare Info</h3>
 
+<table border="black">
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Driver Name</th>
+        <th>Destination</th>
+        <th>PickUp</th>
+        <th>Price</th>
+        <th>Seats</th>
+        <th>Seats Left</th>
+    </tr>
+
 <?php
 
-$con = mysqli_connect('databasic.cvhyllwoxxb3.us-west-1.rds.amazonaws.com', 'DataBasicTeam', 'CPSC304!');
-$rid = 1;
-$sql = "SELECT $rid FROM RideShare";
-$result = $con->query($sql);
+//$con = mysqli_connect('databasic.cvhyllwoxxb3.us-west-1.rds.amazonaws.com', 'DataBasicTeam', 'CPSC304!');
+//$sql = "SELECT $RideID FROM RideShare";
+//$result = $con->query($sql);
+
+$result = RideshareDB::getInstance()->get_rideshare_byid($RideID);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
+        echo "<td>" . htmlentities($row['rtime']) . "</td>";
         echo "<td>" . htmlentities($row['name']) . "</td>";
         echo "<td>" . htmlentities($row['destination']) . "</td>";
+        echo "<td>" . htmlentities($row['address']) . "</td>";
         echo "<td>" . htmlentities($row['price']) . "</td>";
+        echo "<td>" . htmlentities($row['seats']) . "</td>";
         echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
     }
 } else {
     echo "0 results";
 }
-$con->close();
+
 ?>
+</table>
 
 <form name="joinRideshare" action="rideshareinfo.php" method="post">
-
+    Select payment type: <br>
+    <select>
+        <option value="cash">Cash</option>
+        <option value="paypal">PayPal</option>
+    </select> <br>
     <input type="submit" value="Join"><br>
 
 </form>
