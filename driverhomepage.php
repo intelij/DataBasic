@@ -58,6 +58,18 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
 
                 <a href="createrideshare.php" class="btn btn-primary">Create Rideshare</a>
 
+                <h5><?php
+                    $driverID = RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
+                    $maxprice = RideshareDB::getInstance()->get_max_price_driver($driverID);
+                    $aveprice = RIDESHAREDB::getInstance()->get_ave_price_driver($driverID);
+                    $minprice = RideshareDB::getInstance()->get_min_price_driver($driverID);
+                    echo "Most expensive Rideshare: $" . $maxprice;
+                    echo "Least expensive Rideshare: $" . $minprice;
+                    echo "Average price of Rideshares: $" . $aveprice;
+                    ?>
+                </h5>
+
+                    
             </div>
             <div class="col-md-12">
                 <h3>Ongoing RideShares: </h3>
@@ -72,7 +84,7 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         <th></th>
                     </tr>
                     <?php
-                    $driverID = RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
+                    
                     $result = RideshareDB::getInstance()->get_current_drivers_rideshares($driverID);
                     while ($row = mysqli_fetch_array($result)) {
                         $RideID = $row['RID'];
@@ -94,7 +106,6 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         echo "<\tr>\n";
 
 
-                        //echo "<td>" . htmlentities("") . "<a href=\"rideshareinfoTransactions.php?RideID=$RideID\">Edit</a>" . "</td>";
 
                     }
                     mysqli_free_result($result);

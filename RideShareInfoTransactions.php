@@ -42,8 +42,10 @@ RideShare Passenger & Transaction Method:
         while($row = $result->fetch_assoc()) {
             echo "<tr><td>" . htmlentities($row['name']) . "</td>";
             echo "<td>" . htmlentities($row['price']) . "</td>";
-            echo "<td>" . htmlentities($row['type']) . "</td></tr>\n";
+            echo "<td>" . htmlentities($row['Type']) . "</td></tr>\n";
         }
+    } else {
+        echo "no results";
     }
     // mysqli_free_result($result);
     ?>

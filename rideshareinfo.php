@@ -1,8 +1,7 @@
-<!-- RideShareInfo (Driver/Passenger View) -->
-<!-- Will display "Join" for passenger, and list transactions for Driver. -->
-
 <?php
+session_start();
 require_once("db.php");
+
 
 $link = mysqli_connect('databasic.cvhyllwoxxb3.us-west-1.rds.amazonaws.com', 'DataBasicTeam', 'CPSC304!');
 if (!mysqli_ping($link)) {
@@ -12,20 +11,15 @@ if (!mysqli_ping($link)) {
 $RideID = $_GET['RideID'];
 $CPID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
+   if (RideshareDB::getInstance()->check_participates($CPID, $RideID)->num_rows > 0){
+       echo "you're already in this rideshare!";
+   } else {
+       if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']
-    );
-
-
-
-    if (RideshareDB::getInstance()->check_participates($CPID, $RideID)->num_rows > 0){
-        echo "you're already in this rideshare!";
-    } else {
-        echo "you have successfully joined the rideshare!";
-    }
-
+           RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']);
+           echo "you have successfully joined the rideshare!";
+   }
 
     //exit;
 
