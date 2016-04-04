@@ -37,59 +37,82 @@ $CPID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h3>Rideshare Info</h3>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
 
-<table border="black">
-    <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Driver Name</th>
-        <th>Destination</th>
-        <th>PickUp</th>
-        <th>Price</th>
-        <th>Seats</th>
-        <th>Seats Left</th>
-    </tr>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.php">Rideshare App</a>
+                </div>
 
-    <?php
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="passengerhomepage.php">Home</a>
+                        </li>
+                        <li>
+                            <a href="/ridesharelist.php">Rideshare List</a>
+                        </li>
+                </div>
+            </nav>
 
-    $result = RideshareDB::getInstance()->get_rideshare_byid($RideID);
+            <div class="jumbotron">
+                <h2><?php if (array_key_exists("user", $_SESSION)) {
+                        echo "Hello " . $_SESSION['user'];} ?>! </h2>
+                    </div>
 
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-            echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
-            echo "<td>" . htmlentities($row['rtime']) . "</td>";
-            echo "<td>" . htmlentities($row['name']) . "</td>";
-            echo "<td>" . htmlentities($row['destination']) . "</td>";
-            echo "<td>" . htmlentities($row['address']) . "</td>";
-            echo "<td>" . htmlentities($row['price']) . "</td>";
-            echo "<td>" . htmlentities($row['seats']) . "</td>";
-            echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
-        }
-    } else {
-        echo "0 results";
-    }
+                    <div>
+                        <h3>Rideshare Info</h3>
 
+                        <table class = "table table-striped table-bordered table-condensed" border="black">
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Driver Name</th>
+                                <th>Destination</th>
+                                <th>PickUp</th>
+                                <th>Price</th>
+                                <th>Seats</th>
+                                <th>Seats Left</th>
+                            </tr>
 
+                            <?php
 
-    ?>
-</table>
+                            $result = RideshareDB::getInstance()->get_rideshare_byid($RideID);
 
-
-<form name="joinRideshare" action="rideshareinfo.php?RideID=<?php echo $RideID; ?>" method="POST">
-    Select payment type: <br>
-    <select name="type">
-        <option value="cash">Cash</option>
-        <option value="paypal">PayPal</option>
-    </select> <br>
-    <input type="submit" name="joinit" value="Join"><br>
-
-</form>
-
-
-
-</body>
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
+                                    echo "<td>" . htmlentities($row['rtime']) . "</td>";
+                                    echo "<td>" . htmlentities($row['name']) . "</td>";
+                                    echo "<td>" . htmlentities($row['destination']) . "</td>";
+                                    echo "<td>" . htmlentities($row['address']) . "</td>";
+                                    echo "<td>" . htmlentities($row['price']) . "</td>";
+                                    echo "<td>" . htmlentities($row['seats']) . "</td>";
+                                    echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
+                                }
+                            }
+                            ?>
+                        </table>
+                    </div>
+                    <div>
+                        <form role = "form" name="joinRideshare" action="rideshareinfo.php?RideID=<?php echo $RideID; ?>" method="POST">
+                            <h3> Select payment type: </h3>
+                                <select class = "form-control" name="type">
+                                    <option value="cash">Cash</option>
+                                    <option value="paypal">PayPal</option>
+                                </select>
+                                <input type="submit" name="joinit" value="Join">
+                            </form>
+                    </div>
+                </body>
 
 </html>
 

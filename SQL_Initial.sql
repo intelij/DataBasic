@@ -1,79 +1,82 @@
-/*drop database if exists DataBasic;
+ALTER TABLE DataBasic.Participates DROP FOREIGN KEY Participates_ibfk_1;
+ALTER TABLE DataBasic.Participates DROP FOREIGN KEY Participates_ibfk_2;
+ALTER TABLE DataBasic.RideShare DROP FOREIGN KEY RideShare_ibfk_1;
+ALTER TABLE DataBasic.RideShare DROP FOREIGN KEY RideShare_Location_postalCode_fk;
+ALTER TABLE DataBasic.Driver DROP FOREIGN KEY Driver_ibfk_1;
+DROP TABLE DataBasic.Participates;
+DROP TABLE DataBasic.RideShare;
+DROP TABLE DataBasic.Driver;
+DROP TABLE DataBasic.Passenger;
+DROP TABLE DataBasic.Location;
+DROP TABLE DataBasic.Car;
 
-create database DataBasic;
-*/
-use DataBasic;
+USE DataBasic
 
-drop table if exists Passenger;
-CREATE TABLE Passenger
-	(PID int auto_increment not null,
-	email Char(25) NOT NULL,
-	password Char(25) NOT NULL,
-	phoneNum Integer,
-	firstName Char(25),
-	lastName Char(25),
-  PRIMARY KEY (PID));
+CREATE TABLE `Car` (
+ `licenseNum` char(25) NOT NULL,
+ `type` char(25) NOT NULL,
+ `color` char(25) NOT NULL,
+ PRIMARY KEY (`licenseNum`),
+ UNIQUE KEY `Car_licenseNum_uindex` (`licenseNum`)
+)
 
-drop table if exists Car;
-CREATE TABLE Car
-	(licenseNum char(25),
-	type char(25),
-	color char(25),
-PRIMARY KEY (licenseNum));
+CREATE TABLE `Driver` (
+ `DID` int(11) NOT NULL AUTO_INCREMENT,
+ `email` char(25) NOT NULL,
+ `password` char(25) NOT NULL,
+ `phoneNum` char(25) NOT NULL,
+ `name` char(25) NOT NULL,
+ `licenseNum` char(25) NOT NULL,
+ PRIMARY KEY (`DID`),
+ UNIQUE KEY `Driver_name_uindex` (`name`),
+ KEY `licenseNum` (`licenseNum`),
+ CONSTRAINT `Driver_ibfk_1` FOREIGN KEY (`licenseNum`) REFERENCES `Car` (`licenseNum`)
+)
 
-drop table if exists Driver;
-CREATE TABLE Driver
-	(DID int auto_increment not null,
-	email Char(25),
-	password Char(25),
-	phoneNum Integer,
-	firstName Char(25),
-	lastName Char(25),
-	licenseNum Char(25) NOT NULL,
-PRIMARY KEY (DID),
-FOREIGN KEY (licenseNum) references Car (licenseNum));
+CREATE TABLE `Location` (
+ `postalCode` char(25) NOT NULL,
+ `city` char(25) NOT NULL,
+ `province` char(25) NOT NULL,
+ PRIMARY KEY (`postalCode`),
+ UNIQUE KEY `Location_postalCode_uindex` (`postalCode`)
+)
 
-drop table if exists RideShare;
-CREATE TABLE RideShare
-  (RID int auto_increment not null,
-  destination Char(25),
-  price Integer,
-  DID Integer NOT NULL,
-  address Char(25),
-  postalCode Char(25),
-  province Char(25),
-  city Char(25),
-  rdate Char(25),
-  rtime Char(25),
-  Ctime Char(25),
-  CDate Char(25),
-	seats Integer,
-	seatsLeft Integer,
-  PRIMARY KEY (RID),
-  FOREIGN KEY (DID) references Driver (DID));
+CREATE TABLE `Participates` (
+ `PID` int(11) NOT NULL,
+ `RID` int(11) NOT NULL,
+ `Type` char(25) DEFAULT NULL,
+ PRIMARY KEY (`PID`,`RID`),
+ KEY `RID` (`RID`),
+ CONSTRAINT `Participates_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `Passenger` (`PID`),
+ CONSTRAINT `Participates_ibfk_2` FOREIGN KEY (`RID`) REFERENCES `RideShare` (`RID`) ON DELETE CASCADE
+)
 
-drop table if exists Participates;
-CREATE TABLE Participates
-	(PID Integer NOT NULL,
-	RID Integer NOT NULL,
-  PRIMARY KEY (PID, RID),
-  FOREIGN KEY (PID) REFERENCES Passenger (PID),
-  FOREIGN KEY (RID) REFERENCES RideShare (RID) );
+CREATE TABLE `Passenger` (
+ `PID` int(11) NOT NULL AUTO_INCREMENT,
+ `email` char(25) NOT NULL,
+ `password` char(25) NOT NULL,
+ `phoneNum` char(25) NOT NULL,
+ `name` char(25) NOT NULL,
+ PRIMARY KEY (`PID`),
+ UNIQUE KEY `Passenger_name_uindex` (`name`)
+)
 
-drop table if exists Transaction;
-CREATE TABLE Transaction
-	(TID int auto_increment not null,
-	Type Char(25),
-	RID Integer NOT NULL,
-	PID Integer NOT NULL,
-PRIMARY KEY (TID),
-FOREIGN KEY (RID) REFERENCES RideShare (RID) ,
-FOREIGN KEY (PID) REFERENCES Passenger (PID));
-
-
-
-
-
-
-
-
+CREATE TABLE `RideShare1` (
+ `RID` int(11) NOT NULL AUTO_INCREMENT,
+ `destination` char(25) NOT NULL,
+ `price` float NOT NULL,
+ `DID` int(11) NOT NULL,
+ `address` char(25) DEFAULT NULL,
+ `postalCode` char(25) NOT NULL,
+ `rdate` date NOT NULL,
+ `rtime` time DEFAULT NULL,
+ `seats` int(11) NOT NULL,
+ `seatsLeft` int(11) NOT NULL,
+ `Cdatetime` datetime NOT NULL,
+ PRIMARY KEY (`RID`),
+ KEY `DID` (`DID`),
+ KEY `RideShare_Location_postalCode_fk` (`postalCode`),
+ CONSTRAINT `RideShare_Location_postalCode_fk` FOREIGN KEY (`postalCode`) REFERENCES `Location` (`postalCode`),
+ CONSTRAINT `RideShare_ibfk_1` FOREIGN KEY (`DID`) REFERENCES `Driver` (`DID`),
+ CHECK (destination='Whistler' OR 'Victoria' OR 'Richmond' OR 'Vancouver' OR 'MaCrib')
+)

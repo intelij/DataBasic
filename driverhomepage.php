@@ -49,6 +49,9 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         <li>
                             <a href="/ridesharelist.php">Rideshare List</a>
                         </li>
+                        <li>
+                            <a href="/logout.php"> Logout </a>
+                        </li>
                 </div>
             </nav>
 
@@ -58,16 +61,18 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
 
                 <a href="createrideshare.php" class="btn btn-primary">Create Rideshare</a>
 
-                <h5><?php
+                <?php
                     $driverID = RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
                     $maxprice = RideshareDB::getInstance()->get_max_price_driver($driverID);
                     $aveprice = RIDESHAREDB::getInstance()->get_ave_price_driver($driverID);
                     $minprice = RideshareDB::getInstance()->get_min_price_driver($driverID);
-                    echo "Most expensive Rideshare: $" . $maxprice;
-                    echo "Least expensive Rideshare: $" . $minprice;
-                    echo "Average price of Rideshares: $" . $aveprice;
                     ?>
-                </h5>
+                    <p></p>
+                    <h4> Stats: </h4><p></p> <h5>
+                    <?php echo "Most expensive Rideshare: $" . $maxprice; ?> <p></p>
+                    <?php echo "Least expensive Rideshare: $" . $minprice; ?> <p></p>
+                    <?php echo "Average price of Rideshares: $" . $aveprice; ?>
+                    </h5>
 
                     
             </div>

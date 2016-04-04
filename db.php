@@ -208,10 +208,19 @@ class RideshareDB extends mysqli
 
     }
 
+    public function update_destination($Destination, $RID){
+
+        $this->query("UPDATE RideShare
+                      SET destination= '". $Destination ."'
+                      WHERE RID=" . $RID);
+
+    }
+
+
     public function get_available_rideshares(){
-        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
-                  FROM RideShare R, Driver D
-                  WHERE R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() /*AND r.rtime >= cast(gettime() as time)*/");
+        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID, color
+                  FROM RideShare R, Driver D, Car C
+                  WHERE R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() AND D.licenseNum = C.licenseNum /*AND r.rtime >= cast(gettime() as time)*/");
     }
 
     public function get_rideshare_byid($RID){
@@ -286,7 +295,7 @@ class RideshareDB extends mysqli
     public function get_max_price_driver($driverID){
         $max_price = $this->query("SELECT MAX(price)
         FROM RideShare R, Driver D
-        WHERE D.DID = $driverID");
+        WHERE R.DID = ".$driverID);
 
         if ($max_price->num_rows > 0){
             $row = $max_price->fetch_row();
@@ -298,7 +307,7 @@ class RideshareDB extends mysqli
     public function get_ave_price_driver($driverID){
         $ave_price = $this->query("SELECT AVG(price)
         FROM RideShare R, Driver D
-        WHERE D.DID = $driverID");
+        WHERE R.DID = ".driverID);
         if ($ave_price->num_rows > 0){
             $row = $ave_price->fetch_row();
             return $row[0];
@@ -309,7 +318,7 @@ class RideshareDB extends mysqli
     public function get_min_price_driver($driverID){
         $min_price = $this->query("SELECT MIN(price)
         FROM RideShare R, Driver D
-        WHERE D.DID = $driverID");
+        WHERE R.DID =". $driverID);
 
         if ($min_price->num_rows > 0){
             $row = $min_price->fetch_row();
@@ -318,8 +327,8 @@ class RideshareDB extends mysqli
             return null;
     }
 
-    public function search($Driver, $Destination, $Color, $SeatsLeft, $Order)
-        {return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
+    public function search($Driver, $Destination, $Color){
+        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID, color
                   FROM RideShare R, Driver D, Car C
                   WHERE
                   R.DID = D.DID AND
@@ -327,11 +336,9 @@ class RideshareDB extends mysqli
                   R.rdate >= curdate() AND
                   D.licenseNum = C.licenseNum AND
                   D.name like '%$Driver%' AND
-                  R.destination like '%$Destination%' AND
                   C.color like '%$Color%' AND
-                   R.seatsLeft like '%$SeatsLeft%'
+                  R.destination like '%$Destination%'
                   ");
-    }
 
     
     public function get_destination_ave_seats(){

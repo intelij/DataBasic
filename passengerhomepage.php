@@ -48,6 +48,9 @@ if (!(RideshareDB::getInstance()->get_user_type($_SESSION['user']))){
                         <li>
                             <a href="/ridesharelist.php">Rideshare List</a>
                         </li>
+                        <li>
+                            <a href="/logout.php"> Logout </a>
+                        </li>
                 </div>
             </nav>
 
