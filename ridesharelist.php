@@ -9,15 +9,17 @@ if (array_key_exists("user", $_SESSION)) {
 
 require_once("db.php");
 
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $selected_val = $_POST['Parameter'];  // Storing Selected Value In Variable
+    $selected_val = $_POST['Parameter'];
 
-    $_POST['search1'];
     if ($selected_val = 'Driver'){
-
-        //header('Location: ridesharelist.php?Search=' + $search1);
-        exit;
+        $Driver = $_POST['search1'];
+        echo $Driver;
+    } elseif ($selected_val = 'Destination'){
+        $Destination = $_POST['search1'];
+        echo $Destination;
     }
 }
 
@@ -63,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <h2><?php if (array_key_exists("user", $_SESSION)) {
                         echo "Hello " . $_SESSION['user'];
                     } ?>!</h2>
+
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -70,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                     <div class="form-group">
                         <form role="form" action="ridesharelist.php" method="POST">
-                        <input type="text" class="form-control"name="search1" placeholder="Search for...">
+                        <input type="text" class="form-control" name="search1" placeholder="Search for...">
 
                         <select class="form-control" name="Parameter">
                             <option value="Driver">Driver</option>
@@ -96,11 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <th>Link</th>
                             </tr>
                             <?php
-                            $result = RideshareDB::getInstance()->get_available_rideshares();
+                            $result = RideshareDB::getInstance()->search($Driver, $Destination, $Color, $SeatsLeft, $Order);
 
-                            $search = $_GET['Search'];
-                            //$result = RideshareDB::getInstance()->search();
-
+                            //$result = RideshareDB::getInstance()->get_available_rideshares();
                             while ($row = mysqli_fetch_array($result)) {
                                 $RideID = $row['RID'];
                                 echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
