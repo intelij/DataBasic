@@ -111,7 +111,7 @@ class RideshareDB extends mysqli
               '" .$color."'
             )");
 
-        $this->query("INSERT INTO Driver (name, email, phoneNum, password, licenseNum)" .
+        $this->query("INSERT INTO Driver (name, email, phoneNum, licenseNum, password)" .
         "VALUES ('" . $name . "',
          '" . $email . "',
          '" . $phoneNum . "',
