@@ -10,22 +10,16 @@ if (!mysqli_ping($link)) {
 }
 
 $RideID = $_GET['RideID'];
-$CPID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
-    RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']
-    );
-
-
-
-    if (RideshareDB::getInstance()->check_participates($CPID, $RideID)->num_rows > 0){
-        echo "you're already in this rideshare!";
-    } else {
-        echo "you have successfully joined the rideshare!";
-    }
-
+   if (RideshareDB::getInstance()->check_participates($CPID, $RideID)->num_rows > 0){
+       echo "you're already in this rideshare!";
+   } else {
+       if ($_SERVER['REQUEST_METHOD'] == "POST") {
+           $CPID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
+           RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']);
+           echo "you have successfully joined the rideshare!";
+   }
 
     //exit;
 
