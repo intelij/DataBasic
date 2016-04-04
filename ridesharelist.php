@@ -10,22 +10,6 @@ if (array_key_exists("user", $_SESSION)) {
 require_once("db.php");
 
 
-/*if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-    $selected_val = $_POST['Parameter'];
-
-    if ($selected_val = 'Driver'){
-        $Driver = $_POST['search1'];
-        echo $Driver;
-    } elseif ($selected_val = 'Destination'){
-        $Destination = $_POST['search1'];
-        echo $Destination;
-    } elseif($selected_val = 'Color'){
-        $Color = $_POST['search1'];
-    } elseif($selected_val = 'SeatsLeft'){
-        $SeatsLeft = $_POST['search1'];
-    }
-}*/
 
 ?>
 
@@ -77,14 +61,9 @@ require_once("db.php");
 
                     <div class="form-group">
                         <form role="form" action="searchridesharelist.php" method="POST">
-                        <input type="text" class="form-control" name="search1" placeholder="Search for...">
-
-                        <select class="form-control" name="Parameter">
-                            <option value="Driver">Driver</option>
-                            <option value="Destination">Destination</option>
-                            <option value="Color">Car Color</option>
-                            <option value="SeatsLeft">Seats Left</option>
-                        </select>
+                        <input type="text" class="form-control" name="Driver" placeholder="Enter a driver here....">
+                            <input type="text" class="form-control" name="Color" placeholder="Enter a car color here....">
+                            <input type="text" class="form-control" name="Destination" placeholder="Enter a destination here....">
 
                         <button class="btn btn-default" type="submit">Search</button>
                         </form>
@@ -97,6 +76,7 @@ require_once("db.php");
                             <tr>
                                 <th>Date</th>
                                 <th>Driver Name</th>
+                                <th Color </th>
                                 <th>Destination</th>
                                 <th>Price</th>
                                 <th>Seats Left</th>
@@ -110,6 +90,7 @@ require_once("db.php");
                                 $RideID = $row['RID'];
                                 echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
                                 echo "<td>" . htmlentities($row['name']) . "</td>";
+                                echo "<td>" . htmlentities($row['color']) . "</td>";
                                 echo "<td>" . htmlentities($row['destination']) . "</td>";
                                 echo "<td>" . htmlentities($row['price']) . "</td>";
                                 echo "<td>" . htmlentities($row['seatsLeft']) . "</td>";
