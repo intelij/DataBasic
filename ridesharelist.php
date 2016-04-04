@@ -13,9 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $selected_val = $_POST['Parameter'];  // Storing Selected Value In Variable
 
+    $_POST['search1']
     if ($selected_val = 'Driver'){
-        $result = RideshareDB::getInstance()->search_driver($_POST['search']);
-        header('Location: result.php');
+
+        header('Location: ridesharelist.php?Search=' + $search1);
         exit;
     }
 }
@@ -69,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                     <div class="form-group">
                         <form role="form" action="ridesharelist.php" method="POST">
-                        <input type="text" class="form-control"name="search" placeholder="Search for...">
+                        <input type="text" class="form-control"name="search1" placeholder="Search for...">
 
                         <select class="form-control" name="Parameter">
                             <option value="Driver">Driver</option>
@@ -96,6 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             </tr>
                             <?php
                             $result = RideshareDB::getInstance()->get_available_rideshares();
+
+                            $search = $_GET['Search'];
+                            $result = RideshareDB::getInstance()->search();
+
                             while ($row = mysqli_fetch_array($result)) {
                                 $RideID = $row['RID'];
                                 echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
