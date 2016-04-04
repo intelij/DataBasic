@@ -327,8 +327,8 @@ class RideshareDB extends mysqli
             return null;
     }
 
-    public function search($Driver, $Destination, $Color, $SeatsLeft, $Order){
-        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
+    public function search($Driver, $Destination, $Color){
+        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID, color
                   FROM RideShare R, Driver D, Car C
                   WHERE
                   R.DID = D.DID AND
@@ -336,9 +336,8 @@ class RideshareDB extends mysqli
                   R.rdate >= curdate() AND
                   D.licenseNum = C.licenseNum AND
                   D.name like '%$Driver%' AND
-                  R.destination like '%$Destination%' OR
-                  C.color like '%$Color%' OR
-                   R.seatsLeft like '%$SeatsLeft%'
+                  C.color like '%$Color%' AND
+                  R.destination like '%$Destination%'
                   ");
 
     }

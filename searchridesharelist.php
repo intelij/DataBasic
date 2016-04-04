@@ -12,19 +12,9 @@ require_once("db.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $selected_val = $_POST['Parameter'];
-
-    if ($selected_val = 'Driver'){
-        $Driver = $_POST['search1'];
-        echo $Driver;
-    } elseif ($selected_val = 'Destination'){
-        $Destination = $_POST['search1'];
-        echo $Destination;
-    } elseif($selected_val = 'Color'){
-        $Color = $_POST['search1'];
-    } elseif($selected_val = 'SeatsLeft'){
-        $SeatsLeft = $_POST['search1'];
-    }
+    $Driver = $_POST['Driver'];
+    $Destination = $_POST['Destination'];
+    $Color = $_POST['Color'];
 }
 
 ?>
@@ -38,8 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -75,41 +63,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="col-md-12">
                     <h3>Search</h3>
 
-                    <!--<div class="form-group">
-                        <form role="form" action="ridesharelist.php" method="POST">
-                            <input type="text" class="form-control" name="search1" placeholder="Search for...">
-
-                            <select class="form-control" name="Parameter">
-                                <option value="Driver">Driver</option>
-                                <option value="Destination">Destination</option>
-                                <option value="Color">Car Color</option>
-                                <option value="SeatsLeft">Seats Left</option>
-                            </select>
-
-                            <button class="btn btn-default" type="submit">Search</button>
-                        </form>
-                    </div>-->
-
                     <div>
-                        <h3>Available RideShares</h3>
-
                         <table class="table table-bordered" border="black">
                             <tr>
                                 <th>Date</th>
                                 <th>Driver Name</th>
+                                <th Color </th>
                                 <th>Destination</th>
                                 <th>Price</th>
                                 <th>Seats Left</th>
                                 <th>Link</th>
                             </tr>
                             <?php
-                            $result = RideshareDB::getInstance()->search($Driver, $Destination, $Color, $SeatsLeft, $Order);
+                            $result = RideshareDB::getInstance()->search($Driver, $Destination, $Color);
 
-                            //$result = RideshareDB::getInstance()->get_available_rideshares();
                             while ($row = mysqli_fetch_array($result)) {
                                 $RideID = $row['RID'];
                                 echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
                                 echo "<td>" . htmlentities($row['name']) . "</td>";
+                                echo "<td>" . htmlentities($row['color']) . "</td>";
                                 echo "<td>" . htmlentities($row['destination']) . "</td>";
                                 echo "<td>" . htmlentities($row['price']) . "</td>";
                                 echo "<td>" . htmlentities($row['seatsLeft']) . "</td>";
