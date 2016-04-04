@@ -10,7 +10,7 @@ if (array_key_exists("user", $_SESSION)) {
 require_once("db.php");
 
 
-/*if ($_SERVER['REQUEST_METHOD'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $selected_val = $_POST['Parameter'];
 
@@ -25,7 +25,7 @@ require_once("db.php");
     } elseif($selected_val = 'SeatsLeft'){
         $SeatsLeft = $_POST['search1'];
     }
-}*/
+}
 
 ?>
 
@@ -75,20 +75,20 @@ require_once("db.php");
                 <div class="col-md-12">
                     <h3>Search</h3>
 
-                    <div class="form-group">
-                        <form role="form" action="searchridesharelist.php" method="POST">
-                        <input type="text" class="form-control" name="search1" placeholder="Search for...">
+                    <!--<div class="form-group">
+                        <form role="form" action="ridesharelist.php" method="POST">
+                            <input type="text" class="form-control" name="search1" placeholder="Search for...">
 
-                        <select class="form-control" name="Parameter">
-                            <option value="Driver">Driver</option>
-                            <option value="Destination">Destination</option>
-                            <option value="Color">Car Color</option>
-                            <option value="SeatsLeft">Seats Left</option>
-                        </select>
+                            <select class="form-control" name="Parameter">
+                                <option value="Driver">Driver</option>
+                                <option value="Destination">Destination</option>
+                                <option value="Color">Car Color</option>
+                                <option value="SeatsLeft">Seats Left</option>
+                            </select>
 
-                        <button class="btn btn-default" type="submit">Search</button>
+                            <button class="btn btn-default" type="submit">Search</button>
                         </form>
-                    </div>
+                    </div>-->
 
                     <div>
                         <h3>Available RideShares</h3>
@@ -103,9 +103,9 @@ require_once("db.php");
                                 <th>Link</th>
                             </tr>
                             <?php
-                            //$result = RideshareDB::getInstance()->search($Driver, $Destination, $Color, $SeatsLeft, $Order);
+                            $result = RideshareDB::getInstance()->search($Driver, $Destination, $Color, $SeatsLeft, $Order);
 
-                            $result = RideshareDB::getInstance()->get_available_rideshares();
+                            //$result = RideshareDB::getInstance()->get_available_rideshares();
                             while ($row = mysqli_fetch_array($result)) {
                                 $RideID = $row['RID'];
                                 echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
@@ -125,9 +125,3 @@ require_once("db.php");
         </div>
     </div>
 </div>
-
-
-</body>
-</html>
-
-

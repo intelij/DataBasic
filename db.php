@@ -327,8 +327,8 @@ class RideshareDB extends mysqli
                   R.rdate >= curdate() AND
                   D.licenseNum = C.licenseNum AND
                   D.name like '%$Driver%' AND
-                  R.destination like '%$Destination%' AND
-                  C.color like '%$Color%' AND
+                  R.destination like '%$Destination%' OR
+                  C.color like '%$Color%' OR
                    R.seatsLeft like '%$SeatsLeft%'
                   ");
 
