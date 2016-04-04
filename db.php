@@ -209,22 +209,24 @@ class RideshareDB extends mysqli
     }
 
     public function get_current_drivers_rideshares($driverID){
-        return $this->query("SELECT rdate, destination, price, seats, seatsLeft
+        return $this->query("SELECT rdate, destination, price, seats, seatsLeft, RID
                   FROM RideShare R, Driver D
                   WHERE $driverID = D.DID AND R.DID = D.DID AND R.rdate >= curdate()");
     }
 
     public function get_past_drivers_rideshares($driverID){
-        return $this->query("SELECT rdate, destination, price, seats, seatsLeft
+        return $this->query("SELECT rdate, destination, price, seats, seatsLeft, RID
                   FROM RideShare R, Driver D
                   WHERE $driverID = D.DID AND R.DID = D.DID AND R.rdate < curdate()");
     }
 
+
     public function get_rideshare_transactions($rideShareID){
-        return $this->query("SELECT P.name, type, price
-                            FROM RideShare R, Participates Pa, Passenger P
-                            WHERE R.RID = $rideShareID AND R.RID = P.RID AND P.PID = Pa.PID ");
+        return $this->query("SELECT name, price, Type
+                FROM RideShare R, Participates Pa, Passenger P
+                WHERE R.RID = $rideShareID AND R.RID = P.RID AND P.PID = Pa.PID ");
     }
+
 
     public function get_current_passengers_rideshares($passengerID){
     return $this->query("SELECT rdate, destination, price, seatsLeft

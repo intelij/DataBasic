@@ -68,17 +68,20 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         <th>Price</th>
                         <th>Seats Left</th>
                         <th>Seats</th>
+                        <th>Link</th>
                     </tr>
                     <?php
                     $driverID = RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
                     $result = RideshareDB::getInstance()->get_current_drivers_rideshares($driverID);
                     while ($row = mysqli_fetch_array($result)) {
-                        //$RideID = $row['RID'];
+                        $RideID = $row['RID'];
                         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
                         echo "<td>" . htmlentities($row['destination']) . "</td>";
                         echo "<td>" . htmlentities($row['price']) . "</td>";
                         echo "<td>" . htmlentities($row['seatsLeft']) . "</td>";
-                        echo "<td>" . htmlentities($row['seats']) . "</td></tr>\n";
+                        echo "<td>" . htmlentities($row['seats']) . "</td>";
+                        echo "<td>" . htmlentities("") . "<a href=\"rideshareinfoTransactions.php?RideID=$RideID\">Go</a>" . "</td>";
+
                         //echo "<td>" . htmlentities("") . "<a href=\"rideshareinfoTransactions.php?RideID=$RideID\">Edit</a>" . "</td>";
 
                     }
@@ -96,16 +99,19 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         <th>Price</th>
                         <th>Seats Filled</th>
                         <th>Seats</th>
+                        <th>Link</th>
                     </tr>
                     <?php
                     $driverID = RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
                     $result = RideshareDB::getInstance()->get_past_drivers_rideshares($driverID);
                     while ($row = mysqli_fetch_array($result)) {
+                        $RideID = $row['RID'];
                         echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
                         echo "<td>" . htmlentities($row['destination']) . "</td>";
                         echo "<td>" . htmlentities($row['price']) . "</td>";
                         echo "<td>" . htmlentities($row['seatsLeft']) . "</td>";
-                        echo "<td>" . htmlentities($row['seats']) . "</td></tr>\n";
+                        echo "<td>" . htmlentities($row['seats']) . "</td>";
+                        echo "<td>" . htmlentities("") . "<a href=\"rideshareinfoTransactions.php?RideID=$RideID\">Go</a>" . "</td>";
 
                     }
                     mysqli_free_result($result);

@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']
     );
 
+
+
     if (RideshareDB::getInstance()->check_participates($CPID, $RideID)->num_rows > 0){
         echo "you're already in this rideshare!";
     } else {
@@ -56,10 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </tr>
 
 <?php
-
-//$con = mysqli_connect('databasic.cvhyllwoxxb3.us-west-1.rds.amazonaws.com', 'DataBasicTeam', 'CPSC304!');
-//$sql = "SELECT $RideID FROM RideShare";
-//$result = $con->query($sql);
 
 $result = RideshareDB::getInstance()->get_rideshare_byid($RideID);
 

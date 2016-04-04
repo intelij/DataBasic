@@ -9,6 +9,8 @@ if (array_key_exists("user", $_SESSION)) {
 
 require_once("db.php");
 
+$RideID = $_GET['RideID'];
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -32,15 +34,18 @@ RideShare Passenger & Transaction Method:
 
     </tr>
     <?php
-    $rideShareID = RideshareDB::getInstance()->get_rideshare_id();
-    $result = RideshareDB::getInstance()->get_rideshare_transactions($rideShareID);
-    while($row = mysqli_fetch_array($result)){
-        echo "<tr><td>" . htmlentities($row['name']) . "</td>";
-        echo "<tr><td>" . htmlentities($row['price']) . "</td>";
-        echo "<td>" . htmlentities($row['type']) . "</td></tr>\n";
 
+    $result = RideshareDB::getInstance()->get_rideshare_transactions($RideID);
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            echo "<tr><td>" . htmlentities($row['name']) . "</td>";
+            echo "<td>" . htmlentities($row['price']) . "</td>";
+            echo "<td>" . htmlentities($row['type']) . "</td></tr>\n";
+        }
     }
-    mysqli_free_result($result);
+    // mysqli_free_result($result);
     ?>
 
 </table>
