@@ -222,9 +222,14 @@ class RideshareDB extends mysqli
 
 
     public function get_rideshare_transactions($rideShareID){
-        return $this->query("SELECT name, price, Type
-                FROM RideShare R, Participates Pa, Passenger P
-                WHERE R.RID = $rideShareID AND Pa.RID = $rideShareID ");
+        return $this->query("SELECT p.name, pa.Type, R.price
+                FROM Participates pa, Passenger p, RideShare R
+                Where pa.PID = p.PID AND R.RID = $rideShareID AND pa.RID = $rideShareID");
+
+
+//        return $this->query("SELECT name, price, Type
+//                FROM RideShare R, Participates Pa, Passenger P
+//                WHERE R.RID = $rideShareID AND Pa.RID = $rideShareID");
     }
 
 
@@ -244,6 +249,41 @@ class RideshareDB extends mysqli
         return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
                   FROM RideShare R, Driver D
                   WHERE R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() AND D.name = $search");
+    }
+
+    public function get_max_price_driver($driverID){
+        $max_price = $this->query("SELECT MAX(price)
+        FROM RideShare R, Driver D
+        WHERE D.DID = $driverID");
+
+        if ($max_price->num_rows > 0){
+            $row = $max_price->fetch_row();
+            return $row[0];
+        } else
+            return null;
+    }
+
+    public function get_ave_price_driver($driverID){
+        $ave_price = $this->query("SELECT AVG(price)
+        FROM RideShare R, Driver D
+        WHERE D.DID = $driverID");
+        if ($ave_price->num_rows > 0){
+            $row = $ave_price->fetch_row();
+            return $row[0];
+        } else
+            return null;
+    }
+
+    public function get_min_price_driver($driverID){
+        $min_price = $this->query("SELECT MIN(price)
+        FROM RideShare R, Driver D
+        WHERE D.DID = $driverID");
+
+        if ($min_price->num_rows > 0){
+            $row = $min_price->fetch_row();
+            return $row[0];
+        } else
+            return null;
     }
 
 }
