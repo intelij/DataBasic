@@ -307,7 +307,8 @@ class RideshareDB extends mysqli
     public function get_ave_price_driver($driverID){
         $ave_price = $this->query("SELECT AVG(price)
         FROM RideShare R, Driver D
-        WHERE R.DID = ".driverID);
+        WHERE R.DID = ".$driverID);
+
         if ($ave_price->num_rows > 0){
             $row = $ave_price->fetch_row();
             return $row[0];
@@ -350,7 +351,7 @@ class RideshareDB extends mysqli
     }
 
     public function get_destination_ave_maximum_seats($minormax){
-        if($minormax = "MIN"){
+        if($minormax == "MIN"){
             return $this->query("SELECT destination, MIN(AveragesByLoc.avgSeats) AS avgSeats
        FROM (SELECT destination, AVG(seatsLeft) AS avgSeats
              FROM RideShare R
