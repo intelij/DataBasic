@@ -318,8 +318,8 @@ class RideshareDB extends mysqli
             return null;
     }
 
-    public function search($Driver, $Destination, $Color, $SeatsLeft, $Order){
-        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
+    public function search($Driver, $Destination, $Color, $SeatsLeft, $Order)
+        {return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
                   FROM RideShare R, Driver D, Car C
                   WHERE
                   R.DID = D.DID AND
@@ -331,6 +331,29 @@ class RideshareDB extends mysqli
                   C.color like '%$Color%' AND
                    R.seatsLeft like '%$SeatsLeft%'
                   ");
-
     }
+
+    
+    public function get_destination_ave_seats(){
+        return $this->query("SELECT destination, AVG(seatsLeft) AS avgSeats
+             FROM RideShare R
+             WHERE R.rdate >= curdate()
+             GROUP BY destination");
+    }
+    
+    public function get_destination_ave_maximum_seats($minormax){
+        return $this->query("SELECT destination, MAX(AveragesByLoc.avgSeats) AS avgSeats
+       FROM (SELECT destination, AVG(seatsLeft) AS avgSeats
+             FROM RideShare R
+             WHERE R.rdate >= curdate()
+             GROUP BY destination
+            ) AveragesByLoc
+       ");
+    }
+
+
+
+    
+
+    
 }

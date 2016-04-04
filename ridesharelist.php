@@ -66,6 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         echo "Hello " . $_SESSION['user'];
                     } ?>!</h2>
 
+
+               
+
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -117,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         </table>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

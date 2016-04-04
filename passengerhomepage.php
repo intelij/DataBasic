@@ -9,6 +9,7 @@ if (array_key_exists("user", $_SESSION)) {
 
 require_once("db.php");
 
+
 if (!(RideshareDB::getInstance()->get_user_type($_SESSION['user']))){
     header('Location: driverhomepage.php');
     exit;
@@ -57,6 +58,16 @@ if (!(RideshareDB::getInstance()->get_user_type($_SESSION['user']))){
                     } ?>!</h2>
 
                 <a href="ridesharelist.php" class="btn btn-primary">Find a Rideshare</a>
+
+                <form role="form" class="form-group" method="POST" action="passengeraverageseats.php">
+                    <h3>Find Destination with Min or Max Seats!</h3>
+                    <select class="form-control" name="maxormin">
+                        <option value=“MAX”>Max</option>
+                        <option value=“MIN”>Min</option>
+                    </select>
+
+                    <button class="btn btn-default" type="submit">Find it!</button>
+                </form>
 
             </div>
 
