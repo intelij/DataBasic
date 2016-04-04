@@ -21,11 +21,16 @@ $province = $_POST['province'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
-    RideshareDB::getInstance()->create_rideshare($DID, $postalCode,
-        $destination, $price, $address, $rdate, $mySql_rtime, $seats, $seatsLeft,$city, $province);
+    if ($seats > 0) {
 
-    header('Location: driverhomepage.php');
-    exit;
+        RideshareDB::getInstance()->create_rideshare($DID, $postalCode,
+            $destination, $price, $address, $rdate, $mySql_rtime, $seats, $seatsLeft, $city, $province);
+
+        header('Location: driverhomepage.php');
+        exit;
+    } else {
+        echo "Seats must be greater than 0";
+    }
 
 }
 

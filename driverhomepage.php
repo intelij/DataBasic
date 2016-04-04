@@ -125,7 +125,7 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         <th>Date</th>
                         <th>Destination</th>
                         <th>Price</th>
-                        <th>Seats Filled</th>
+                        <th>Seats Left</th>
                         <th>Seats</th>
                         <th>Link</th>
                     </tr>

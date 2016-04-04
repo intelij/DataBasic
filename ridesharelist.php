@@ -54,6 +54,9 @@ require_once("db.php");
                         echo "Hello " . $_SESSION['user'];
                     } ?>!</h2>
 
+
+               
+
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -102,7 +105,7 @@ require_once("db.php");
                         </table>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

@@ -10,14 +10,23 @@ require_once("db.php");
 
 $RideID = $_GET['RideID'];
 
+
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    echo $_POST['location'];
-    echo
 
     RideshareDB::getInstance()->update_destination($_POST['location'], $RideID);
 
-    echo " destination changed to " . $_POST['location'];
+    $Dest = RideshareDB::getInstance()->get_rideshare_byid($RideID);
+    $D = $Dest->fetch_assoc();
+    $Dest1 = $D['destination'];
+
+    if ($_POST['location'] = $Dest1){
+        echo " destination changed to " . $_POST['location'];
+    } else {
+        echo "update failed: invalid destination";
+    }
+
 }
 
 ?>

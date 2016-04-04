@@ -307,7 +307,8 @@ class RideshareDB extends mysqli
     public function get_ave_price_driver($driverID){
         $ave_price = $this->query("SELECT AVG(price)
         FROM RideShare R, Driver D
-        WHERE R.DID = ".driverID);
+        WHERE R.DID = ".$driverID);
+
         if ($ave_price->num_rows > 0){
             $row = $ave_price->fetch_row();
             return $row[0];
@@ -327,7 +328,8 @@ class RideshareDB extends mysqli
             return null;
     }
 
-    public function search($Driver, $Destination, $Color){
+    public function search($Driver, $Destination, $Color)
+    {
         return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID, color
                   FROM RideShare R, Driver D, Car C
                   WHERE
@@ -339,6 +341,32 @@ class RideshareDB extends mysqli
                   C.color like '%$Color%' AND
                   R.destination like '%$Destination%'
                   ");
-
     }
+    
+    public function get_destination_ave_seats(){
+        return $this->query("SELECT destination, AVG(seatsLeft) AS avgSeats
+             FROM RideShare R
+             WHERE R.rdate >= curdate()
+             GROUP BY destination");
+    }
+
+    public function get_destination_ave_maximum_seats($minormax){
+        if($minormax == "MIN"){
+            return $this->query("SELECT destination, MIN(AveragesByLoc.avgSeats) AS avgSeats
+       FROM (SELECT destination, AVG(seatsLeft) AS avgSeats
+             FROM RideShare R
+             WHERE R.rdate >= curdate()
+             GROUP BY destination
+            ) AveragesByLoc
+       ");}
+        else return $this->query("SELECT destination, MAX(AveragesByLoc.avgSeats) AS avgSeats
+       FROM (SELECT destination, AVG(seatsLeft) AS avgSeats
+             FROM RideShare R
+             WHERE R.rdate >= curdate()
+             GROUP BY destination
+            ) AveragesByLoc
+            ");
+    }
+
+    
 }
