@@ -153,11 +153,23 @@ class RideshareDB extends mysqli
         $RID = $this->real_escape_string($RID);
         $Type = $this->real_escape_string($Type);
 
+        $seatsLeft = $this->get_seatsleft_by_rid($RID);
+
+        if ($seatsLeft > 0) {
+        $this->query("UPDATE RideShare
+                              SET seatsLeft = seatsLeft - 1
+                              WHERE RID = '$RID'
+                              AND seatsLeft > 0");
+
         $this->query("INSERT INTO Participates (PID, RID, Type)" .
             "VALUES ('" . $PID . "',
          '" . $RID . "',
-         '" . $Type . "'
-         )");
+         '" . $Type . "')");
+
+        }
+        else{
+            return null;
+        }
     }
 
     public function check_participates($PID, $RID){
@@ -246,4 +258,24 @@ class RideshareDB extends mysqli
                   WHERE R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() AND D.name = $search");
     }
 
+    public function get_seatsleft_by_rid($RID) {
+        $RID = $this->real_escape_string($RID);
+        $seatsLeft = $this->query("SELECT seatsLeft FROM RideShare WHERE RID = '$RID' ");
+
+        if ($seatsLeft->num_rows > 0){
+            $row = $seatsLeft->fetch_row();
+            return $row[0];
+        } else
+            return null;
+    }
+
+    public function delete_rideshare($RID)
+    {
+        $seatsLeft = $this->get_seatsleft_by_rid($RID);
+
+        if ($seatsLeft > 0) {
+            $this->query("DELETE FROM RideShare WHERE RID = '$RID'");
+        } else
+            return null;
+    }
 }

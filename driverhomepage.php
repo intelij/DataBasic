@@ -69,6 +69,7 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         <th>Seats Left</th>
                         <th>Seats</th>
                         <th>Link</th>
+                        <th></th>
                     </tr>
                     <?php
                     $driverID = RideshareDB::getInstance()->get_driver_id_by_name($_SESSION['user']);
@@ -81,6 +82,17 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         echo "<td>" . htmlentities($row['seatsLeft']) . "</td>";
                         echo "<td>" . htmlentities($row['seats']) . "</td>";
                         echo "<td>" . htmlentities("") . "<a href=\"rideshareinfoTransactions.php?RideID=$RideID\">Go</a>" . "</td>";
+                        ?>
+                    <td>
+                    <form name= "delete" action="deleteRS.php" method="POST">
+                        <input type="hidden" name="RID" value="<?php echo $RideID;?>" />
+                        <input type="submit" name="deleteRS" value="Delete">
+                    </form>
+                    </td>
+
+                    <?php
+                        echo "<\tr>\n";
+
 
                         //echo "<td>" . htmlentities("") . "<a href=\"rideshareinfoTransactions.php?RideID=$RideID\">Edit</a>" . "</td>";
 
