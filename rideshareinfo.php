@@ -51,29 +51,29 @@ $CPID = RideshareDB::getInstance()->get_passenger_id_by_name($_SESSION['user']);
         <th>Seats Left</th>
     </tr>
 
-<?php
+    <?php
 
-$result = RideshareDB::getInstance()->get_rideshare_byid($RideID);
+    $result = RideshareDB::getInstance()->get_rideshare_byid($RideID);
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
-        echo "<td>" . htmlentities($row['rtime']) . "</td>";
-        echo "<td>" . htmlentities($row['name']) . "</td>";
-        echo "<td>" . htmlentities($row['destination']) . "</td>";
-        echo "<td>" . htmlentities($row['address']) . "</td>";
-        echo "<td>" . htmlentities($row['price']) . "</td>";
-        echo "<td>" . htmlentities($row['seats']) . "</td>";
-        echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
+            echo "<td>" . htmlentities($row['rtime']) . "</td>";
+            echo "<td>" . htmlentities($row['name']) . "</td>";
+            echo "<td>" . htmlentities($row['destination']) . "</td>";
+            echo "<td>" . htmlentities($row['address']) . "</td>";
+            echo "<td>" . htmlentities($row['price']) . "</td>";
+            echo "<td>" . htmlentities($row['seats']) . "</td>";
+            echo "<td>" . htmlentities($row['seatsLeft']) . "</td></tr>\n";
+        }
+    } else {
+        echo "0 results";
     }
-} else {
-    echo "0 results";
-}
 
 
 
-?>
+    ?>
 </table>
 
 
