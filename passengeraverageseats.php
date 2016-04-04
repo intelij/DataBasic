@@ -30,9 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 </table>
 
+<br>
 
 
 <table class="table table-bordered" border="black">
+    <tr>
+        <th>Destination</th>
+        <th>Average Seats by Location</th>
+    </tr>
     <?php
         $result = RideshareDB::getInstance()->get_destination_ave_seats();
     while ($row = mysqli_fetch_array($result)) {
