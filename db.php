@@ -208,6 +208,15 @@ class RideshareDB extends mysqli
 
     }
 
+    public function update_destination($Destination, $RID){
+
+        $this->query("UPDATE RideShare
+                      SET destination= '". $Destination ."'
+                      WHERE RID=" . $RID);
+
+    }
+
+
     public function get_available_rideshares(){
         return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
                   FROM RideShare R, Driver D

@@ -13,7 +13,11 @@ $RideID = $_GET['RideID'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    RideshareDB::getInstance()->create_participates($CPID, $RideID, $_POST['type']);
+    echo $_POST['location'];
+    echo
+
+    RideshareDB::getInstance()->update_destination($_POST['location'], $RideID);
+
     echo " destination changed to " . $_POST['location'];
 }
 
