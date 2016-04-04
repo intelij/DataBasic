@@ -76,7 +76,7 @@ require_once("db.php");
                             <tr>
                                 <th>Date</th>
                                 <th>Driver Name</th>
-                                <th Color </th>
+                                <th>Color</th>
                                 <th>Destination</th>
                                 <th>Price</th>
                                 <th>Seats Left</th>

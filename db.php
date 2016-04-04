@@ -218,9 +218,9 @@ class RideshareDB extends mysqli
 
 
     public function get_available_rideshares(){
-        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
-                  FROM RideShare R, Driver D
-                  WHERE R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() /*AND r.rtime >= cast(gettime() as time)*/");
+        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID, color
+                  FROM RideShare R, Driver D, Car C
+                  WHERE R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() AND D.licenseNum = C.licenseNum /*AND r.rtime >= cast(gettime() as time)*/");
     }
 
     public function get_rideshare_byid($RID){
