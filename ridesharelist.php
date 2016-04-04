@@ -13,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $selected_val = $_POST['Parameter'];  // Storing Selected Value In Variable
 
-    $_POST['search1']
+    $_POST['search1'];
     if ($selected_val = 'Driver'){
 
-        header('Location: ridesharelist.php?Search=' + $search1);
+        //header('Location: ridesharelist.php?Search=' + $search1);
         exit;
     }
 }
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             $result = RideshareDB::getInstance()->get_available_rideshares();
 
                             $search = $_GET['Search'];
-                            $result = RideshareDB::getInstance()->search();
+                            //$result = RideshareDB::getInstance()->search();
 
                             while ($row = mysqli_fetch_array($result)) {
                                 $RideID = $row['RID'];
