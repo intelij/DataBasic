@@ -82,7 +82,6 @@ if (RideshareDB::getInstance()->get_user_type($_SESSION['user'])){
                         echo "<td>" . htmlentities($row['seats']) . "</td>";
                         echo "<td>" . htmlentities("") . "<a href=\"rideshareinfoTransactions.php?RideID=$RideID\">Go</a>" . "</td>";
 
-                        //echo "<td>" . htmlentities("") . "<a href=\"rideshareinfoTransactions.php?RideID=$RideID\">Edit</a>" . "</td>";
 
                     }
                     mysqli_free_result($result);

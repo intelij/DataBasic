@@ -44,6 +44,8 @@ RideShare Passenger & Transaction Method:
             echo "<td>" . htmlentities($row['price']) . "</td>";
             echo "<td>" . htmlentities($row['type']) . "</td></tr>\n";
         }
+    } else {
+        echo "no results";
     }
     // mysqli_free_result($result);
     ?>

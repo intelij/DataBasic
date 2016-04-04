@@ -224,7 +224,7 @@ class RideshareDB extends mysqli
     public function get_rideshare_transactions($rideShareID){
         return $this->query("SELECT name, price, Type
                 FROM RideShare R, Participates Pa, Passenger P
-                WHERE R.RID = $rideShareID AND R.RID = P.RID AND P.PID = Pa.PID ");
+                WHERE R.RID = $rideShareID AND Pa.RID = $rideShareID ");
     }
 
 
