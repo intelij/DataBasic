@@ -10,7 +10,7 @@ DROP TABLE DataBasic.Passenger;
 DROP TABLE DataBasic.Location;
 DROP TABLE DataBasic.Car;
 
-USE DataBasic
+USE DataBasic;
 
 CREATE TABLE `Car` (
  `licenseNum` char(25) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `Car` (
  `color` char(25) NOT NULL,
  PRIMARY KEY (`licenseNum`),
  UNIQUE KEY `Car_licenseNum_uindex` (`licenseNum`)
-)
+);
 
 CREATE TABLE `Driver` (
  `DID` int(11) NOT NULL AUTO_INCREMENT,
@@ -31,7 +31,7 @@ CREATE TABLE `Driver` (
  UNIQUE KEY `Driver_name_uindex` (`name`),
  KEY `licenseNum` (`licenseNum`),
  CONSTRAINT `Driver_ibfk_1` FOREIGN KEY (`licenseNum`) REFERENCES `Car` (`licenseNum`)
-)
+);
 
 CREATE TABLE `Location` (
  `postalCode` char(25) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `Location` (
  `province` char(25) NOT NULL,
  PRIMARY KEY (`postalCode`),
  UNIQUE KEY `Location_postalCode_uindex` (`postalCode`)
-)
+);
 
 CREATE TABLE `Participates` (
  `PID` int(11) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE `Participates` (
  KEY `RID` (`RID`),
  CONSTRAINT `Participates_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `Passenger` (`PID`),
  CONSTRAINT `Participates_ibfk_2` FOREIGN KEY (`RID`) REFERENCES `RideShare` (`RID`) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE `Passenger` (
  `PID` int(11) NOT NULL AUTO_INCREMENT,
@@ -59,7 +59,7 @@ CREATE TABLE `Passenger` (
  `name` char(25) NOT NULL,
  PRIMARY KEY (`PID`),
  UNIQUE KEY `Passenger_name_uindex` (`name`)
-)
+);
 
 CREATE TABLE `RideShare1` (
  `RID` int(11) NOT NULL AUTO_INCREMENT,
@@ -79,4 +79,4 @@ CREATE TABLE `RideShare1` (
  CONSTRAINT `RideShare_Location_postalCode_fk` FOREIGN KEY (`postalCode`) REFERENCES `Location` (`postalCode`),
  CONSTRAINT `RideShare_ibfk_1` FOREIGN KEY (`DID`) REFERENCES `Driver` (`DID`),
  CHECK (destination='Whistler' OR 'Victoria' OR 'Richmond' OR 'Vancouver' OR 'MaCrib')
-)
+);
