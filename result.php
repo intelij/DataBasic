@@ -8,18 +8,6 @@ if (array_key_exists("user", $_SESSION)) {
 }
 
 require_once("db.php");
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-    $selected_val = $_POST['Parameter'];  // Storing Selected Value In Variable
-
-    if ($selected_val = 'Driver'){
-        $result = RideshareDB::getInstance()->search_driver($_POST['search']);
-        header('Location: result.php');
-        exit;
-    }
-}
-
 ?>
 
 
@@ -95,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <th>Link</th>
                             </tr>
                             <?php
-                            $result = RideshareDB::getInstance()->get_available_rideshares();
+                            //$result = RideshareDB::getInstance()->search_driver();
                             while ($row = mysqli_fetch_array($result)) {
                                 $RideID = $row['RID'];
                                 echo "<tr><td>" . htmlentities($row['rdate']) . "</td>";
@@ -106,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 echo "<td>" . htmlentities("") . "<a href=\"rideshareinfo.php?RideID=$RideID\">Go</a>" . "</td>";
 
                             }
-                            mysqli_free_result($result);
+                            //mysqli_free_result($result);
                             ?>
                         </table>
                     </div>

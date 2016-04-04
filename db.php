@@ -238,4 +238,10 @@ class RideshareDB extends mysqli
                   WHERE $passengerID = P.PID AND P.PID = Pa.PID AND R.RID = Pa.RID AND R.rdate < curdate()");
     }
 
+    public function search_driver($search){
+        return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
+                  FROM RideShare R, Driver D
+                  WHERE R.DID = D.DID AND seatsLeft > 0 AND R.rdate >= curdate() AND D.name = $search");
+    }
+
 }
