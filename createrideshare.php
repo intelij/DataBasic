@@ -115,14 +115,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     <div class = "form-group">
         <label for = "Departure Date:">
-            Departure Date: (Month Date, Year)
+            Departure Date: (Month Date(DD), Year(YYYY))
         </label>
         <input class = "form-control" type="text" name="rdate" required/>
     </div>
 
     <div class = "form-group">
         <label for = "Departure Time:">
-            Departure Time:
+            Departure Time: (HH : MM : AM/PM)
         </label>
         <input class = "form-control" type="time" name="rtime" required/>
     </div>
