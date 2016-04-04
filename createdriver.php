@@ -54,16 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <a class="navbar-brand" href="index.php">Rideshare App</a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="#">Link</a>
-                        </li>
-                        <li>
-                            <a href="#">Link</a>
-                        </li>
-                </div>
-
             </nav>
 
             <div class="jumbotron">

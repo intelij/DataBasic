@@ -7,22 +7,22 @@ $passwordIsEmpty = false;
 $password2IsEmpty = false;
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST"){
-    if ($_POST['user']==""){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if ($_POST['user'] == "") {
         $userIsEmpty = true;
     }
 
-    if ($_POST['password']=="")
+    if ($_POST['password'] == "")
         $passwordIsEmpty = true;
-    if ($_POST['password2']=="")
+    if ($_POST['password2'] == "")
         $password2IsEmpty = true;
-    if ($_POST['password']!=$_POST['password2']) {
+    if ($_POST['password'] != $_POST['password2']) {
         $passwordIsValid = false;
     }
 
     if (!$passwordIsEmpty && !$password2IsEmpty && $passwordIsValid) {
         RideshareDB::getInstance()->create_passenger($_POST['user'],
-            $_POST['email'],$_POST['phoneNum'],$_POST['password']);
+            $_POST['email'], $_POST['phoneNum'], $_POST['password']);
 
         header('Location: index.php');
         exit;
@@ -40,38 +40,89 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 </head>
 <body>
 
-<h3>User Information</h3>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
 
-<form name="addPass" action="createpassenger.php" method="POST">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.php">Rideshare App</a>
+                </div>
 
-    User name: <input type="text" name="user" required/><br/>
-    Email:  <input type="text" name="email" required/><br/>
-    Phone Number: <input type="text" name="phoneNum" required/><br/>
-    <br/>
-    Password: <input type="password" name="password" required/><br/>
-    <?php
-    if ($passwordIsEmpty) {
-        echo ("Enter the password, please");
-        echo ("<br/>");
-    }
-    ?>
+            </nav>
 
-    Please confirm your password: <input type="password" name="password2" required/><br/>
+            <div class="jumbotron">
+                <form name="addPass" action="createpassenger.php" method="POST">
 
-    <?php
-    if ($password2IsEmpty) {
-        echo ("Confirm your password, please");
-        echo ("<br/>");
-    }
-    if (!$password2IsEmpty && !$passwordIsValid) {
-        echo ("<div>The passwords do not match!</div>");
-        echo ("<br/>");
-    }
-    ?>
+                    <form role="form" name="addPassenger" action="createpassenger.php" method="POST">
+                        <h3>User Information</h3>
+                        <div class="form-group">
+                            <label for="username">
+                                Username
+                            </label>
+                            <input type="text" class="form-control" name="user" required/>
+                        </div>
 
-    <br/>
+                        <div class="form-group">
+                            <label for="email">
+                                Email
+                            </label>
+                            <input class="form-control" type="text" name="email" required/>
+                        </div>
 
-    <input type="submit" name="savePass" value="Save Changes"/>
-</form>
+                        <div class="form-group">
+                            <label for="phone">
+                                Phone Number
+                            </label>
+                            <input class="form-control" type="text" name="phoneNum" required/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pass">
+                                Password
+                            </label>
+                            <input class="form-control" type="password" name="password" required/>
+                        </div>
+
+                        <?php
+                        if ($passwordIsEmpty) {
+                            echo("Enter the password, please");
+                            echo("<br/>");
+                        }
+                        ?>
+
+                        <div class="form-group">
+                            <label for="pass2">
+                                Confirm password
+                            </label>
+                            <input class="form-control" type="password" name="password2" required/>
+                        </div>
+
+                        <?php
+                        if ($password2IsEmpty) {
+                            echo("Confirm your password, please");
+                            echo("<br/>");
+                        }
+                        if (!$password2IsEmpty && !$passwordIsValid) {
+                            echo("<div>The passwords do not match!</div>");
+                            echo("<br/>");
+                        }
+                        ?>
+
+                        <button type="submit" value="Save Changes" class="btn btn-default">Submit</button>
+                    </form>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 </body>
 </html>

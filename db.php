@@ -208,6 +208,15 @@ class RideshareDB extends mysqli
 
     }
 
+    public function update_destination($Destination, $RID){
+
+        $this->query("UPDATE RideShare
+                      SET destination= '". $Destination ."'
+                      WHERE RID=" . $RID);
+
+    }
+
+
     public function get_available_rideshares(){
         return $this->query("SELECT rdate, name, destination, price, seats, seatsLeft, RID
                   FROM RideShare R, Driver D
@@ -286,7 +295,7 @@ class RideshareDB extends mysqli
     public function get_max_price_driver($driverID){
         $max_price = $this->query("SELECT MAX(price)
         FROM RideShare R, Driver D
-        WHERE D.DID = $driverID");
+        WHERE R.DID = ".$driverID);
 
         if ($max_price->num_rows > 0){
             $row = $max_price->fetch_row();
@@ -298,7 +307,7 @@ class RideshareDB extends mysqli
     public function get_ave_price_driver($driverID){
         $ave_price = $this->query("SELECT AVG(price)
         FROM RideShare R, Driver D
-        WHERE D.DID = $driverID");
+        WHERE R.DID = ".driverID);
         if ($ave_price->num_rows > 0){
             $row = $ave_price->fetch_row();
             return $row[0];
@@ -309,7 +318,7 @@ class RideshareDB extends mysqli
     public function get_min_price_driver($driverID){
         $min_price = $this->query("SELECT MIN(price)
         FROM RideShare R, Driver D
-        WHERE D.DID = $driverID");
+        WHERE R.DID =". $driverID);
 
         if ($min_price->num_rows > 0){
             $row = $min_price->fetch_row();
